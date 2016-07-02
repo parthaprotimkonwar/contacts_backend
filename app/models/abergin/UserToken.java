@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USER_TOKEN", schema = Constants.SCHEMA_NAME_REABTE_ABERGIN)
+@Table(name = "USER_TOKEN", schema = Constants.SCHEMA_NAME_CONTACTS_ABERGIN)
 public class UserToken implements Serializable {
 
     public UserToken() {

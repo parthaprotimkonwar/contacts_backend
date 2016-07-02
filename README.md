@@ -1,4 +1,4 @@
 rebate backend
 ==============
 
-Rebate backend.
+Contacts backend.

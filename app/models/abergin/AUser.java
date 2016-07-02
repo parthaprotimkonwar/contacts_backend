@@ -4,10 +4,9 @@ import application.enums.STATUS;
 import application.enums.USER_TYPE;
 import models.Constants;
 import models.address.UserAddress;
-import models.friends.UserFriend;
-import models.payments.UserPaymentOption;
-import models.useractivities.UserPoints;
-import models.useractivities.UserTransaction;
+import models.images.Image;
+import models.location.UserLocation;
+import models.specialities.UserSubSpeciality;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,7 +14,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name="USERS", schema= Constants.SCHEMA_NAME_REABTE_ABERGIN,
+@Table(name="USERS", schema= Constants.SCHEMA_NAME_CONTACTS_ABERGIN,
 		uniqueConstraints={@UniqueConstraint(columnNames = {"USER_TYPE","EMAIL"})},
 		indexes = {
 				@Index(name = "USERS_REABTE_LOGIN", columnList = "USER_TYPE,EMAIL,PASSWORD"),
@@ -46,8 +45,9 @@ public class AUser implements Serializable{
 	@Column(name = "PASSWORD", length = 50)
 	private String password;
 
-	@Column(name = "IMAGE_URL", columnDefinition = "text")
-	private String imageUrl;
+	@ManyToOne
+	@JoinColumn(name = "IMAGE_ID")
+	private Image image;
 
 	@Column(name="LAST_LOGIN")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -57,8 +57,11 @@ public class AUser implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn;
 
-	@Column(name = "IS_VERIFIED")
-	private Boolean isVerified;
+	@Column(name = "LATITUDE")
+	private Double latitude;
+
+	@Column(name = "LONGITUDE")
+	private Double longitude;
 
 	@Column(name = "STATUS")
 	@Enumerated(value = EnumType.ORDINAL)
@@ -67,34 +70,30 @@ public class AUser implements Serializable{
 	@OneToOne(mappedBy="user")
 	private UserToken userToken;
 	
-	@OneToMany(mappedBy="userIdAddressId.user")
-	private Set<UserAddress> userAddressSet;
+	@OneToOne(mappedBy="userIdAddressId.user")
+	private UserAddress userAddressSet;
 
-	@OneToOne(mappedBy = "user")
-	private UserPoints userPoints;
+	@OneToOne(mappedBy="userIdLocationId.user")
+	private UserLocation userLocation;
 
-	@OneToMany(mappedBy="user")
-	private Set<UserTransaction> userTransactionSet;
-
-	@OneToMany(mappedBy="userIdPaymentOptionId.user")
-	private Set<UserPaymentOption> userPaymentOptionSet;
-
-	@OneToMany(mappedBy="userIdFriendId.user")
-	private Set<UserFriend> userFriendSet;
+	@OneToMany(mappedBy = "userIdSubSpecialityId.user")
+	private Set<UserSubSpeciality> userSubSpecialitySet;
 
 	public AUser(Long userId) {
 		this.userId = userId;
 	}
 
-	public AUser(USER_TYPE userType, String name, String email, String mobile, String password, String imageUrl, Date lastLogin, Date createdOn, STATUS status) {
+	public AUser(USER_TYPE userType, String name, String email, String mobile, String password, Image image, Date lastLogin, Date createdOn, Double latitude, Double longitude, STATUS status) {
 		this.userType = userType;
 		this.name = name;
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
-		this.imageUrl = imageUrl;
+		this.image = image;
 		this.lastLogin = lastLogin;
 		this.createdOn = createdOn;
+		this.latitude = latitude;
+		this.longitude = longitude;
 		this.status = status;
 	}
 
@@ -138,14 +137,6 @@ public class AUser implements Serializable{
 		this.password = password;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-
 	public Date getLastLogin() {
 		return lastLogin;
 	}
@@ -174,24 +165,8 @@ public class AUser implements Serializable{
 		return userToken;
 	}
 
-	public Set<UserAddress> getUserAddressSet() {
+	public UserAddress getUserAddressSet() {
 		return userAddressSet;
-	}
-
-	public UserPoints getUserPoints() {
-		return userPoints;
-	}
-
-	public Set<UserTransaction> getUserTransactionSet() {
-		return userTransactionSet;
-	}
-
-	public Set<UserPaymentOption> getUserPaymentOptionSet() {
-		return userPaymentOptionSet;
-	}
-
-	public Set<UserFriend> getUserFriendSet() {
-		return userFriendSet;
 	}
 
 	public String getMobile() {
@@ -202,11 +177,27 @@ public class AUser implements Serializable{
 		this.mobile = mobile;
 	}
 
-	public Boolean getIsVerified() {
-		return isVerified;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setIsVerified(Boolean isVerified) {
-		this.isVerified = isVerified;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

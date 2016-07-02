@@ -29,7 +29,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 		try {
 			AUserBean defaultAUserBean = new AUserBean(USER_TYPE.REBATE, null, null, null, "DEFAULT_PASSWORD", new Date(), new Date(), "DEFAULT_IMAGE_URL", STATUS.SUCCESS);
 			userBean = userBean.superImposeUser(defaultAUserBean);
-			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), userBean.getImageUrl(), userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
+			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), userBean.getImageUrl(), userBean.getLastLogin(), userBean.getCreatedOn(), latitude, longitude, userBean.getStatus());
 			AUsersRepository.save(user);
 			return user;
 		} catch (Exception ex) {

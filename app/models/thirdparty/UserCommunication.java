@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name="USER_COMMUNICATION", schema= Constants.SCHEMA_NAME_REABTE_TRANSACTION)
+@Table(name="USER_COMMUNICATION", schema= Constants.SCHEMA_NAME_CONTACTS_SPECIALITY)
 public class UserCommunication implements Serializable{
 
 	@Id

@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name="USER_ADDRESS", schema= Constants.SCHEMA_NAME_REABTE_ADDRESS)
+@Table(name="USER_ADDRESS", schema= Constants.SCHEMA_NAME_CONTACTS_ADDRESS)
 public class UserAddress implements Serializable{
 
 	@EmbeddedId

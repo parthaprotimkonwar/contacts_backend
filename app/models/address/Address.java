@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name="ADDRESS", schema= Constants.SCHEMA_NAME_REABTE_ADDRESS)
+@Table(name="ADDRESS", schema= Constants.SCHEMA_NAME_CONTACTS_ADDRESS)
 public class Address implements Serializable{
 
 	public Address() {}
@@ -53,8 +53,8 @@ public class Address implements Serializable{
 	@Column(name="COUNTRY", length=20)
 	private String country;
 	
-	@OneToMany(mappedBy="userIdAddressId.address", cascade=CascadeType.ALL)
-	private Set<UserAddress> userAddress;
+	@OneToOne(mappedBy="userIdAddressId.address", cascade=CascadeType.ALL)
+	private UserAddress userAddress;
 
 	public Long getAddressId() {
 		return addressId;
@@ -128,11 +128,11 @@ public class Address implements Serializable{
 		this.country = country;
 	}
 
-	public Set<UserAddress> getUserAddress() {
+	public UserAddress getUserAddress() {
 		return userAddress;
 	}
 
-	public void setUserAddress(Set<UserAddress> userAddress) {
+	public void setUserAddress(UserAddress userAddress) {
 		this.userAddress = userAddress;
 	}
 }
