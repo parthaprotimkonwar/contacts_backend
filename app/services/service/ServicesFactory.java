@@ -1,14 +1,9 @@
 package services.service;
 
-import services.service.abergin.UserTokenServiceI;
 import services.service.abergin.AUsersServiceI;
+import services.service.abergin.UserTokenServiceI;
 import services.service.address.AddressServiceI;
 import services.service.address.UserAddressServiceI;
-import services.service.friends.UserFriendServiceI;
-import services.service.payments.PaymentOptionServiceI;
-import services.service.payments.UserPaymentOptionServiceI;
-import services.service.useractivities.UserPointsServiceI;
-import services.service.useractivities.UserTransactionServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,18 +28,4 @@ public class ServicesFactory {
 	@Inject
 	public PersonServiceI personService;
 
-	@Inject
-	public UserFriendServiceI userFriendService;
-
-	@Inject
-	public PaymentOptionServiceI paymentOptionService;
-
-	@Inject
-	public UserPaymentOptionServiceI userPaymentOptionServiceI;
-
-	@Inject
-	public UserPointsServiceI userPointsService;
-
-	@Inject
-	public UserTransactionServiceI userTransactionService;
 }

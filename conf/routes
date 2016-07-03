@@ -14,10 +14,6 @@ POST	    /signup						@rest.controllers.UserLoginController.signup
 
 POST        /logout                     @rest.controllers.UserLoginController.logout
 
-POST        /usertransaction            @rest.controllers.UserTransactionController.userTransaction
-
-POST        /userpoints                 @rest.controllers.UserTransactionController.userPoints
-
 POST	    /address					@rest.controllers.ActivitiesController.createNewAddress
 
 POST	    /address/user				@rest.controllers.ActivitiesController.listsAddress
@@ -27,10 +23,6 @@ OPTIONS     /signup                     @rest.controllers.CORSAllowController.en
 OPTIONS     /login                      @rest.controllers.CORSAllowController.enablecors
 
 OPTIONS     /logout                     @rest.controllers.CORSAllowController.enablecors
-
-OPTIONS     /usertransaction            @rest.controllers.CORSAllowController.enablecors
-
-OPTIONS     /userpoints                 @rest.controllers.CORSAllowController.enablecors
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

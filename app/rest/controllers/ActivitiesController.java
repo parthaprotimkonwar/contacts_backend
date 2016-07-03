@@ -6,12 +6,12 @@ import models.abergin.AUser;
 import models.address.UserAddress;
 import play.mvc.BodyParser;
 import play.mvc.Result;
-import rest.factory.BaseController;
 import rest.bean.request.AddressRequestDto;
 import rest.bean.response.AddressDto;
 import rest.bean.response.AddressResponseDto;
 import rest.bean.response.ErrorResponse;
 import rest.bean.response.ListsAddressResponseDto;
+import rest.factory.BaseController;
 import services.service.ServicesFactory;
 
 import javax.inject.Inject;

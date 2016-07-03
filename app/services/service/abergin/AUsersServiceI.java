@@ -74,5 +74,5 @@ public interface AUsersServiceI {
 	 * @return
 	 * @throws BaseException
 	 */
-	UserResponseBean convertToUserBean(AUser aUser) throws BaseException;
+	//UserResponseBean convertToUserBean(AUser aUser) throws BaseException;
 }

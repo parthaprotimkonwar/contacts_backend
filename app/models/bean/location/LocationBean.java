@@ -1,33 +1,33 @@
-package models.location;
+package models.bean.location;
 
-import models.Constants;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Created by pkonwar on 7/2/2016.
  */
-@Entity
-@Table(name = "LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_LOCATION)
-public class Location implements Serializable{
+public class LocationBean implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "LOCATION_ID")
     private Long locationId;
 
-    @Column(name = "NAME", length = 30)
     private String name;
 
-    @Column(name = "LATITUDE")
     private Double latitude;
 
-    @Column(name = "LONGITUDE")
     private Double longitude;
 
-    @OneToOne(mappedBy = "userIdLocationId.location")
-    private UserLocation userLocation;
+    public LocationBean() {
+    }
+
+    public LocationBean(Long locationId) {
+        this.locationId = locationId;
+    }
+
+    public LocationBean(Long locationId, String name, Double latitude, Double longitude) {
+        this.locationId = locationId;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     public Long getLocationId() {
         return locationId;

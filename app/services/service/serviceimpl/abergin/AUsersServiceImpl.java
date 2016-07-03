@@ -1,20 +1,18 @@
 package services.service.serviceimpl.abergin;
 
-import application.enums.STATUS;
 import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
+import models.aaimages.AAImage;
 import models.abergin.AUser;
 import models.bean.abergin.AUserBean;
 import repository.abergin.AUsersRepository;
-import rest.bean.response.UserResponseBean;
 import services.service.abergin.AUsersServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 
 @Named
@@ -27,9 +25,10 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser createAUser(AUserBean userBean) throws BaseException{
 		try {
-			AUserBean defaultAUserBean = new AUserBean(USER_TYPE.REBATE, null, null, null, "DEFAULT_PASSWORD", new Date(), new Date(), "DEFAULT_IMAGE_URL", STATUS.SUCCESS);
-			userBean = userBean.superImposeUser(defaultAUserBean);
-			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), userBean.getImageUrl(), userBean.getLastLogin(), userBean.getCreatedOn(), latitude, longitude, userBean.getStatus());
+			//AUserBean defaultAUserBean = new AUserBean(USER_TYPE.REBATE, null, null, null, "DEFAULT_PASSWORD", new Date(), new Date(), "DEFAULT_IMAGE_URL", STATUS.SUCCESS);
+			AAImage image = new AAImage(userBean.getImageId());
+			//AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), image, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
+			AUser user = new AUser();
 			AUsersRepository.save(user);
 			return user;
 		} catch (Exception ex) {
@@ -109,9 +108,9 @@ public class AUsersServiceImpl implements AUsersServiceI {
 		}
 	}
 
-	@Override
+	/*@Override
 	public UserResponseBean convertToUserBean(AUser aUser) throws BaseException {
 		return new UserResponseBean(aUser.getUserId(), aUser.getUserType(), aUser.getName(), aUser.getEmail(), aUser.getMobile(), aUser.getLastLogin(), aUser.getCreatedOn(), aUser.getImageUrl(), aUser.getStatus());
-	}
+	}*/
 
 }

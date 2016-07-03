@@ -1,5 +1,6 @@
 package models.specialities;
 
+import application.enums.STATUS;
 import models.Constants;
 
 import javax.persistence.*;
@@ -20,6 +21,10 @@ public class Speciality implements Serializable{
 
     @Column(name = "SPECIALITY", length = 30)
     private String speciality;
+
+    @Column(name = "STATUS")
+    @Enumerated(value = EnumType.ORDINAL)
+    private STATUS status;
 
     @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)
     private Set<SubSpeciality> subSpecialitySet;

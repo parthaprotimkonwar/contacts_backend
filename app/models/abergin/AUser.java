@@ -3,8 +3,8 @@ package models.abergin;
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
 import models.Constants;
+import models.aaimages.AAImage;
 import models.address.UserAddress;
-import models.images.Image;
 import models.location.UserLocation;
 import models.specialities.UserSubSpeciality;
 
@@ -45,9 +45,9 @@ public class AUser implements Serializable{
 	@Column(name = "PASSWORD", length = 50)
 	private String password;
 
-	@ManyToOne
-	@JoinColumn(name = "IMAGE_ID")
-	private Image image;
+	@Lob
+	@Column(name = "IMAGE_BLOB")
+	private byte[] imageBlob;
 
 	@Column(name="LAST_LOGIN")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -56,12 +56,6 @@ public class AUser implements Serializable{
 	@Column(name="CREATED_ON")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdOn;
-
-	@Column(name = "LATITUDE")
-	private Double latitude;
-
-	@Column(name = "LONGITUDE")
-	private Double longitude;
 
 	@Column(name = "STATUS")
 	@Enumerated(value = EnumType.ORDINAL)
@@ -83,17 +77,15 @@ public class AUser implements Serializable{
 		this.userId = userId;
 	}
 
-	public AUser(USER_TYPE userType, String name, String email, String mobile, String password, Image image, Date lastLogin, Date createdOn, Double latitude, Double longitude, STATUS status) {
+	public AUser(USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status) {
 		this.userType = userType;
 		this.name = name;
 		this.email = email;
 		this.mobile = mobile;
 		this.password = password;
-		this.image = image;
+		this.imageBlob = imageBlob;
 		this.lastLogin = lastLogin;
 		this.createdOn = createdOn;
-		this.latitude = latitude;
-		this.longitude = longitude;
 		this.status = status;
 	}
 
@@ -177,27 +169,11 @@ public class AUser implements Serializable{
 		this.mobile = mobile;
 	}
 
-	public Double getLongitude() {
-		return longitude;
+	public byte[] getImageBlob() {
+		return imageBlob;
 	}
 
-	public void setLongitude(Double longitude) {
-		this.longitude = longitude;
-	}
-
-	public Double getLatitude() {
-		return latitude;
-	}
-
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
+	public void setImageBlob(byte[] imageBlob) {
+		this.imageBlob = imageBlob;
 	}
 }

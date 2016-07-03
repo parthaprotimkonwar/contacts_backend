@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Created by pkonwar on 7/2/2016.
  */
 @Entity
-@Table(name = "USER_LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_LOCATION)
+@Table(name = "AUSER_LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_LOCATION)
 public class UserLocation implements Serializable{
 
     @EmbeddedId

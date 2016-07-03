@@ -1,5 +1,6 @@
 package models.specialities;
 
+import models.Constants;
 import models.abergin.AUser;
 
 import javax.persistence.Column;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
  * Created by pkonwar on 7/2/2016.
  */
 @Entity
-@Table
+@Table(name = "USER_SUB_SPECIALITY", schema = Constants.SCHEMA_NAME_CONTACTS_SPECIALITY)
 public class UserSubSpeciality {
 
     @EmbeddedId

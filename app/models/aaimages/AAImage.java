@@ -1,4 +1,4 @@
-package models.images;
+package models.aaimages;
 
 import models.abergin.AUser;
 
@@ -11,7 +11,14 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "IMAGES")
-public class Image implements Serializable{
+public class AAImage implements Serializable {
+
+    public AAImage() {
+    }
+
+    public AAImage(Long imageId) {
+        this.imageId = imageId;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,10 +28,6 @@ public class Image implements Serializable{
     @Lob
     @Column(name = "IMAGE_BLOB")
     private byte[] imageBlob;
-
-    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)
-    private Set<AUser> aUserSet;
-
 
     public Long getImageId() {
         return imageId;

@@ -38,7 +38,8 @@ public class UserLoginController extends BaseController{
             AUserBean userBean = convertRequestBodyToObject(request().body(), AUserBean.class);
             AUser user = servicesFactory.usersService.createAUser(userBean);
             UserToken token = servicesFactory.userTokenService.createOrupdateToken(user.getUserId());
-            UserResponseBean userDetails = servicesFactory.usersService.convertToUserBean(user);
+            //UserResponseBean userDetails = servicesFactory.usersService.convertToUserBean(user);
+            UserResponseBean userDetails = new UserResponseBean();
             response = new LoginResponseBean(user.getUserId(), token.getTokenId(), user.getStatus(), userDetails);
 
         } catch (BaseException ex) {
@@ -65,7 +66,8 @@ public class UserLoginController extends BaseController{
                 throw new BaseException(error.errorCode, error.errorMessage);
             }
             UserToken token = servicesFactory.userTokenService.createOrupdateToken(user.getUserId());
-            UserResponseBean userDetails = servicesFactory.usersService.convertToUserBean(user);
+            //UserResponseBean userDetails = servicesFactory.usersService.convertToUserBean(user);
+            UserResponseBean userDetails = new UserResponseBean();
             response = new LoginResponseBean(user.getUserId(), token.getTokenId(), user.getStatus(), userDetails);
 
         } catch (BaseException ex) {
