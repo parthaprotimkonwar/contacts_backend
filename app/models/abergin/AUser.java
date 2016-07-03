@@ -3,7 +3,6 @@ package models.abergin;
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
 import models.Constants;
-import models.aaimages.AAImage;
 import models.address.UserAddress;
 import models.location.UserLocation;
 import models.specialities.UserSubSpeciality;
@@ -17,8 +16,7 @@ import java.util.Set;
 @Table(name="USERS", schema= Constants.SCHEMA_NAME_CONTACTS_ABERGIN,
 		uniqueConstraints={@UniqueConstraint(columnNames = {"USER_TYPE","EMAIL"})},
 		indexes = {
-				@Index(name = "USERS_REABTE_LOGIN", columnList = "USER_TYPE,EMAIL,PASSWORD"),
-				@Index(name = "USERS_SOCIAL_LOGIN", columnList = "USER_TYPE,EMAIL")
+				@Index(name = "USERS_LOGIN", columnList = "USER_TYPE,EMAIL,PASSWORD")
 		})
 public class AUser implements Serializable{
 

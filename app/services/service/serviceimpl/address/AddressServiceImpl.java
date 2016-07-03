@@ -29,7 +29,6 @@ public class AddressServiceImpl implements AddressServiceI{
 		}
 	}
 
-	
 	@Override
 	public Address retrieveAddress(Long addressId) throws BaseException {
 		try {
@@ -39,5 +38,4 @@ public class AddressServiceImpl implements AddressServiceI{
 			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
 		}
 	}
-	
 }

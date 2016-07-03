@@ -28,6 +28,15 @@ public interface AUsersServiceI {
 	AUser login(AUserBean userBean) throws BaseException;
 
 	/**
+	 *
+	 * @param email
+	 * @param password
+	 * @param userType
+	 * @return
+	 * @throws BaseException
+     */
+	AUser findUserByEmailAndPasswordAndUserType(String email, String password, USER_TYPE userType) throws BaseException;
+	/**
 	 * Find a user by emailId and Password
 	 * @param email
 	 * @param password
@@ -74,5 +83,5 @@ public interface AUsersServiceI {
 	 * @return
 	 * @throws BaseException
 	 */
-	//UserResponseBean convertToUserBean(AUser aUser) throws BaseException;
+	UserResponseBean convertToUserBean(AUser aUser) throws BaseException;
 }

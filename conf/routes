@@ -8,6 +8,8 @@ GET         /                           @rest.controllers.Application.index
 
 GET		    /persons					@rest.controllers.Application.persons
 
+GET         /readImageFile              @rest.controllers.Application.readImageFile
+
 POST	    /login						@rest.controllers.UserLoginController.login
 
 POST	    /signup						@rest.controllers.UserLoginController.signup

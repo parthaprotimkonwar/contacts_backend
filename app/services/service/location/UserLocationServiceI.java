@@ -14,10 +14,10 @@ public interface UserLocationServiceI {
 
     /**
      * Add User Location
-     * @param userLocation
+     * @param userLocationBean
      * @throws BaseException
      */
-    void addUserLocation(UserLocation userLocation) throws BaseException;
+    void addUserLocation(UserLocationBean userLocationBean) throws BaseException;
 
     /**
      *
@@ -25,7 +25,7 @@ public interface UserLocationServiceI {
      * @return
      * @throws BaseException
      */
-    Boolean removeUserLocation(UserIdLocationIdBean userIdLocationIdBean) throws BaseException;
+    void removeUserLocation(UserIdLocationIdBean userIdLocationIdBean) throws BaseException;
 
     /**
      *

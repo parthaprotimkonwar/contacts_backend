@@ -13,10 +13,6 @@ public class UserIdLocationIdBean implements Serializable {
     public UserIdLocationIdBean() {
     }
 
-    public UserIdLocationIdBean(Long userId) {
-        this.userId = userId;
-    }
-
     public UserIdLocationIdBean(Long userId, Long locationId) {
         this.userId = userId;
         this.locationId = locationId;

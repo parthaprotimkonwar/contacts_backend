@@ -14,6 +14,14 @@ import java.io.Serializable;
 @Embeddable
 public class UserIdLocationId implements Serializable{
 
+    public UserIdLocationId() {}
+
+    public UserIdLocationId(AUser user, Location location) {
+        this.user = user;
+        this.location = location;
+    }
+
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private AUser user;

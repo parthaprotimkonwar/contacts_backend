@@ -10,6 +10,10 @@ import services.service.ServicesFactory;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +63,13 @@ public class Application extends BaseController {
         try {
         	/*AUser user = servicesFactory.usersService.createAUser("GUEST");
             AUser onotherUser = servicesFactory.usersService.findUserById(user.userId);*/
-            return ok(views.html.index.render("Found id: " + retrievedPerson.id + " new Id: /*+ onotherUser.userId + */ of person/people Addeed text"));
+            //return ok(views.html.index.render("Found id: " + retrievedPerson.id + " new Id: /*+ onotherUser.userId + */ of person/people Addeed text"));
+            return ok("SUCCESS");
         } catch(Exception ex) {
         	
         }
-        return ok(views.html.index.render("of person/people Addeed text"));
+        //return ok(views.html.index.render("of person/people Addeed text"));
+        return ok("SUCCESS");
         
     }
     
@@ -84,5 +90,19 @@ public class Application extends BaseController {
     		
     	}
     	return convertObjectToJsonResponse(response);
+    }
+
+
+    public Result readImageFile() {
+        Path path = Paths.get("C:\\Users\\pkonwar\\Desktop\\addressbook\\dragon_160x160.jpg");
+        byte[] imageBytes = null;
+        try {
+            imageBytes = Files.readAllBytes(path);
+
+            System.out.println(imageBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ok(imageBytes);
     }
 }

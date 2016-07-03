@@ -9,36 +9,27 @@ import java.util.Date;
 public class AUserBean implements Serializable {
 
     private Long userId;
-
     private USER_TYPE userType;
-
     private String name;
-
     private String email;
-
     private String mobile;
-
     private String password;
-
-    private Long imageId;
-
+    private String imageUrl;
     private Date lastLogin;
-
     private Date createdOn;
-
     private STATUS status;
 
     public AUserBean() {
     }
 
-    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, Long imageId, Date lastLogin, Date createdOn, Double latitude, Double longitude, STATUS status) {
+    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, String imageUrl, Date lastLogin, Date createdOn, Double latitude, Double longitude, STATUS status) {
         this.userId = userId;
         this.userType = userType;
         this.name = name;
         this.email = email;
         this.mobile = mobile;
         this.password = password;
-        this.imageId = imageId;
+        this.imageUrl = imageUrl;
         this.lastLogin = lastLogin;
         this.createdOn = createdOn;
         this.status = status;
@@ -92,12 +83,12 @@ public class AUserBean implements Serializable {
         this.password = password;
     }
 
-    public Long getImageId() {
-        return imageId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Date getLastLogin() {

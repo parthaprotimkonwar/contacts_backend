@@ -6,7 +6,6 @@ import java.io.Serializable;
  * Created by pkonwar on 5/11/2016.
  */
 public enum USER_TYPE implements Serializable{
-    REBATE("REBATE"),
     ADMIN("ADMIN"),
     CUSTOMERS("CUSTOMERS"),
     VENDORS("VENDORS");

@@ -12,6 +12,14 @@ import java.io.Serializable;
 @Table(name = "LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_LOCATION)
 public class Location implements Serializable{
 
+    public Location(){}
+
+    public Location(String name, Double latitude, Double longitude){
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "LOCATION_ID")

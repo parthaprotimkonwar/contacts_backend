@@ -13,8 +13,8 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.validation.constraints.NotNull;
 
-import static application.encryption.Util.addTimeToDate;
-import static application.encryption.Util.getSystemTimeInMillis;
+import static application.encryption.CryptoUtil.addTimeToDate;
+import static application.encryption.CryptoUtil.getSystemTimeInMillis;
 
 @Named
 @Singleton

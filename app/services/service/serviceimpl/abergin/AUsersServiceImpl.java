@@ -1,12 +1,13 @@
 package services.service.serviceimpl.abergin;
 
+import application.Utilities.Util;
 import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
-import models.aaimages.AAImage;
 import models.abergin.AUser;
 import models.bean.abergin.AUserBean;
 import repository.abergin.AUsersRepository;
+import rest.bean.response.UserResponseBean;
 import services.service.abergin.AUsersServiceI;
 
 import javax.inject.Inject;
@@ -25,10 +26,8 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser createAUser(AUserBean userBean) throws BaseException{
 		try {
-			//AUserBean defaultAUserBean = new AUserBean(USER_TYPE.REBATE, null, null, null, "DEFAULT_PASSWORD", new Date(), new Date(), "DEFAULT_IMAGE_URL", STATUS.SUCCESS);
-			AAImage image = new AAImage(userBean.getImageId());
-			//AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), image, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
-			AUser user = new AUser();
+			byte[] imageBytes = userBean.getImageUrl() != null && !userBean.getImageUrl().isEmpty() ? Util.convertImageToByte(userBean.getImageUrl()) : null;
+			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
 			AUsersRepository.save(user);
 			return user;
 		} catch (Exception ex) {
@@ -41,14 +40,27 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	public AUser login(AUserBean userBean) throws BaseException {
 		try {
 			AUser user = null;
-			if(userBean.getUserType() == USER_TYPE.REBATE) {
-				user = findUserByEmailAndPassword(userBean.getEmail(), userBean.getPassword());		//Login for REABTE users
+			if(userBean.getUserType() == null) {
+				user = findUserByEmailAndPassword(userBean.getEmail(), userBean.getPassword());		//Default Login for vendors
 			} else {
-				user = findUserByEmail(userBean.getEmail(), userBean.getUserType());				//Login for Social Users
-				if(user == null) {
-					user = createAUser(userBean);													//If Social User not present Signup them
-				}
+				user = findUserByEmailAndPasswordAndUserType(userBean.getEmail(), userBean.getPassword(), userBean.getUserType());	//Login for Others
 			}
+			//No such user
+			if(user == null) {
+				ErrorConstants error = ErrorConstants.INVALID_LOGIN;
+				throw new BaseException(error.errorCode, error.errorMessage);
+			}
+			return user;
+		} catch (Exception ex) {
+			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
+			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+		}
+	}
+
+	@Override
+	public AUser findUserByEmailAndPasswordAndUserType(String email, String password, USER_TYPE userType) throws BaseException {
+		try {
+			AUser user = AUsersRepository.findByEmailAndPasswordAndUserType(email, password, userType);
 			return user;
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
@@ -59,7 +71,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser findUserByEmailAndPassword(String email, String password) throws BaseException {
 		try {
-			AUser user = AUsersRepository.findByEmailAndPasswordAndUserType(email, password, USER_TYPE.REBATE);
+			AUser user = AUsersRepository.findByEmailAndPasswordAndUserType(email, password, USER_TYPE.VENDORS);
 			return user;
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
@@ -108,9 +120,9 @@ public class AUsersServiceImpl implements AUsersServiceI {
 		}
 	}
 
-	/*@Override
+	@Override
 	public UserResponseBean convertToUserBean(AUser aUser) throws BaseException {
-		return new UserResponseBean(aUser.getUserId(), aUser.getUserType(), aUser.getName(), aUser.getEmail(), aUser.getMobile(), aUser.getLastLogin(), aUser.getCreatedOn(), aUser.getImageUrl(), aUser.getStatus());
-	}*/
+		return new UserResponseBean(aUser.getUserId(), aUser.getUserType(), aUser.getName(), aUser.getEmail(), aUser.getMobile(), aUser.getLastLogin(), aUser.getCreatedOn(), null, aUser.getStatus());
+	}
 
 }

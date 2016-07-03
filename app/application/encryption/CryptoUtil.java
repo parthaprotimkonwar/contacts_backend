@@ -1,13 +1,9 @@
 package application.encryption;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
-import rest.bean.response.ErrorResponse;
-import application.exceptions.ErrorConstants;
-
-public class Util {
+public class CryptoUtil {
 
 	/**
 	 * Add milliseconds to the current date.
@@ -40,15 +36,6 @@ public class Util {
 	public static Boolean validTime(Long timestamp, int minutes) {
 		final long ONE_MINUTE_IN_MILLIS = 60000; //millisecs
 		return getSystemTimeInMillis() < timestamp + (ONE_MINUTE_IN_MILLIS * minutes);
-	}
-	
-	/**
-	 * Generating Error Response
-	 * @param errorConstants
-	 * @return
-	 */
-	public static ErrorResponse generateErrorResponse(ErrorConstants errorConstants) {
-		return new ErrorResponse(errorConstants.errorCode, errorConstants.errorMessage);
 	}
 	
 	public static void main(String[] args) {

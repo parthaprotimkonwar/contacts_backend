@@ -29,10 +29,9 @@ public interface LocationServiceI {
 
     /**
      * @param locationId
-     * @return
      * @throws BaseException
      */
-    Boolean deleteLocation(Long locationId) throws BaseException;
+    void deleteLocation(Long locationId) throws BaseException;
 
     /**
      *

@@ -12,10 +12,17 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "AUSER_LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_LOCATION)
-public class UserLocation implements Serializable{
+public class UserLocation implements Serializable {
 
     @EmbeddedId
     private UserIdLocationId userIdLocationId;
+
+    public UserLocation() {
+    }
+
+    public UserLocation(UserIdLocationId userIdLocationId) {
+        this.userIdLocationId = userIdLocationId;
+    }
 
     public UserIdLocationId getUserIdLocationId() {
         return userIdLocationId;
