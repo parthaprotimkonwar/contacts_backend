@@ -26,7 +26,7 @@ public interface SubSpecialityServiceI {
      * @return
      * @throws BaseException
      */
-    Boolean removeSubSpeciality(Long subSpecialityId) throws BaseException;
+    void removeSubSpeciality(Long subSpecialityId) throws BaseException;
 
     /**
      * Find a SubSpeciality

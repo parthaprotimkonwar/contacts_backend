@@ -18,7 +18,7 @@ public interface UserSubSpecialityServiceI {
      * @param userSubSpecialityBean
      * @throws BaseException
      */
-    void addUserSubSpeciality(UserSubSpecialityBean userSubSpecialityBean) throws BaseException;
+    UserSubSpeciality addUserSubSpeciality(UserSubSpecialityBean userSubSpecialityBean) throws BaseException;
 
 
     /**
@@ -28,7 +28,7 @@ public interface UserSubSpecialityServiceI {
      * @return
      * @throws BaseException
      */
-    Boolean removeUserSubSpeciality(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean) throws BaseException;
+    void removeUserSubSpeciality(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean) throws BaseException;
 
     /**
      * Find all User SubSpeciality
@@ -40,9 +40,9 @@ public interface UserSubSpecialityServiceI {
 
 
     /**
-     * @param userSubSpecialityBeanList
+     * @param userSubSpecialityList
      * @return
      * @throws BaseException
      */
-    List<UserSubSpeciality> convertToUserSubSpecialityBean(List<UserSubSpecialityBean> userSubSpecialityBeanList) throws BaseException;
+    public List<UserSubSpecialityBean> convertToUserSubSpecialityBean(List<UserSubSpeciality> userSubSpecialityList) throws BaseException;
 }

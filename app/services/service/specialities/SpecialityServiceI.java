@@ -27,7 +27,7 @@ public interface SpecialityServiceI {
      * @return
      * @throws BaseException
      */
-    Boolean removeSpeciality(Long specialityId) throws BaseException;
+    void removeSpeciality(Long specialityId) throws BaseException;
 
     /**
      * Update a Speciality

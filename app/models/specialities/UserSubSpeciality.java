@@ -1,7 +1,6 @@
 package models.specialities;
 
 import models.Constants;
-import models.abergin.AUser;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -26,4 +25,46 @@ public class UserSubSpeciality {
 
     @Column(name = "LONGITUDE")
     private Double longitude;
+
+    public UserSubSpeciality() {
+    }
+
+    public UserSubSpeciality(UserIdSubSpecialityId userIdSubSpecialityId, Integer price, Double latitude, Double longitude) {
+        this.userIdSubSpecialityId = userIdSubSpecialityId;
+        this.price = price;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public UserIdSubSpecialityId getUserIdSubSpecialityId() {
+        return userIdSubSpecialityId;
+    }
+
+    public void setUserIdSubSpecialityId(UserIdSubSpecialityId userIdSubSpecialityId) {
+        this.userIdSubSpecialityId = userIdSubSpecialityId;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }

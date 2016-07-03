@@ -12,15 +12,24 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "SUB_SPECIALITY", schema = Constants.SCHEMA_NAME_CONTACTS_SPECIALITY)
-public class SubSpeciality implements Serializable{
+public class SubSpeciality implements Serializable {
+
+    public SubSpeciality() {
+    }
+
+    public SubSpeciality(String subSpeciality, STATUS status, Speciality speciality) {
+        this.subSpeciality = subSpeciality;
+        this.status = status;
+        this.speciality = speciality;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "SUB_SPECIALITY_ID")
     private Long subSpecialityId;
 
-    @Column(name = "SUB_SPECIALITY", length = 30)
-    private String subSpecilaity;
+    @Column(name = "SUB_SPECIALITY", length = 30, nullable = false, unique = true)
+    private String subSpeciality;
 
     @Column(name = "STATUS")
     @Enumerated(value = EnumType.ORDINAL)
@@ -32,4 +41,36 @@ public class SubSpeciality implements Serializable{
 
     @OneToMany(mappedBy = "userIdSubSpecialityId.subSpeciality")
     private Set<UserSubSpeciality> userSubSpecialitySet;
+
+    public Long getSubSpecialityId() {
+        return subSpecialityId;
+    }
+
+    public void setSubSpecialityId(Long subSpecialityId) {
+        this.subSpecialityId = subSpecialityId;
+    }
+
+    public String getSubSpeciality() {
+        return subSpeciality;
+    }
+
+    public void setSubSpeciality(String subSpeciality) {
+        this.subSpeciality = subSpeciality;
+    }
+
+    public STATUS getStatus() {
+        return status;
+    }
+
+    public void setStatus(STATUS status) {
+        this.status = status;
+    }
+
+    public Speciality getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(Speciality speciality) {
+        this.speciality = speciality;
+    }
 }
