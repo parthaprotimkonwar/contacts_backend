@@ -9,7 +9,7 @@ public class AddressDto implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public AddressDto(Long addressId, String addressHeading, String pincode, String address, String landmark, String phoneNo, String city, String state, String country) {
+	public AddressDto(Long addressId, String addressHeading, String pincode, String address, String landmark, String phoneNo, String city, String state, String country, Double latitude, Double longitude) {
 		this.addressId = addressId;
 		this.addressHeading = addressHeading;
 		this.pincode = pincode;
@@ -19,6 +19,8 @@ public class AddressDto implements Serializable{
 		this.city = city;
 		this.state = state;
 		this.country = country;
+		this.longitude = longitude;
+		this.latitude = latitude;
 	}
 	
 	public Long addressId;
@@ -30,4 +32,6 @@ public class AddressDto implements Serializable{
 	public String city;
 	public String state;
 	public String country;
+	public Double latitude;
+	public Double longitude;
 }

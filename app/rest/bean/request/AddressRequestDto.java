@@ -17,7 +17,8 @@ public class AddressRequestDto implements Serializable {
 	public String city;
 	public String state;
 	public String country;
-	
+	public Double latitude;
+	public Double longitude;
 	
 	public enum AddressRequestDtoFields implements Fields {
 		token,
@@ -28,7 +29,10 @@ public class AddressRequestDto implements Serializable {
 		phoneNo,
 		city,
 		state,
-		country;
+		country,
+		latitude,
+		longitude;
+
 
 		@Override
 		public String getStringValue() {

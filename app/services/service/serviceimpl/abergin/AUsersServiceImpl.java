@@ -7,7 +7,6 @@ import application.exceptions.ErrorConstants;
 import models.abergin.AUser;
 import models.bean.abergin.AUserBean;
 import repository.abergin.AUsersRepository;
-import rest.bean.response.UserResponseBean;
 import services.service.abergin.AUsersServiceI;
 
 import javax.inject.Inject;

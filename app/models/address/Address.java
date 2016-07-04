@@ -12,8 +12,7 @@ public class Address implements Serializable{
 
 	public Address() {}
 	
-	public Address(String addressHeading, String pincode, String address, String landmark, String phoneNo, String city, String state, String country) {
-	
+	public Address(String addressHeading, String pincode, String address, String landmark, String phoneNo, String city, String state, String country,  Double longitude, Double latitude) {
 		this.addressHeading = addressHeading;
 		this.pincode = pincode;
 		this.address = address;
@@ -22,6 +21,8 @@ public class Address implements Serializable{
 		this.city = city;
 		this.state = state;
 		this.country = country;
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 	
 	@Id
@@ -43,7 +44,7 @@ public class Address implements Serializable{
 	
 	@Column(name="PHONE_NO", length=15)
 	private String phoneNo;
-	
+
 	@Column(name="CITY", length=20)
 	private String city;
 	
@@ -52,7 +53,13 @@ public class Address implements Serializable{
 	
 	@Column(name="COUNTRY", length=20)
 	private String country;
-	
+
+	@Column(name = "LONGITUDE")
+	private Double longitude;
+
+	@Column(name = "LATITUDE")
+	private Double latitude;
+
 	@OneToOne(mappedBy="userIdAddressId.address", cascade=CascadeType.ALL)
 	private UserAddress userAddress;
 
@@ -134,5 +141,21 @@ public class Address implements Serializable{
 
 	public void setUserAddress(UserAddress userAddress) {
 		this.userAddress = userAddress;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 }

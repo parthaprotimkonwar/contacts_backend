@@ -39,7 +39,7 @@ public class UserAddressServiceImpl implements UserAddressServiceI{
 	@Override
 	public UserAddress createUserAddress(AUser user, AddressRequestDto address) throws BaseException {
 		try {
-			Address completeAddress = new Address(address.addressHeading, address.pincode, address.address, address.landmark, address.phoneNo, address.city, address.state, address.country);
+			Address completeAddress = new Address(address.addressHeading, address.pincode, address.address, address.landmark, address.phoneNo, address.city, address.state, address.country, address.longitude, address.latitude);
 			addressRepository.save(completeAddress);
 			
 			UserIdAddressId userIdAddressId = new UserIdAddressId(user, completeAddress);
@@ -58,7 +58,7 @@ public class UserAddressServiceImpl implements UserAddressServiceI{
 			List<AddressDto> addressDto = new ArrayList<>();
 			for(UserAddress userAddress : userAddresses) {
 				Address a = userAddress.userIdAddressId.address;
-				AddressDto address = new AddressDto(a.getAddressId(), a.getAddressHeading(), a.getPincode(), a.getAddress(), a.getLandmark(), a.getPhoneNo(), a.getCity(), a.getState(), a.getCountry());
+				AddressDto address = new AddressDto(a.getAddressId(), a.getAddressHeading(), a.getPincode(), a.getAddress(), a.getLandmark(), a.getPhoneNo(), a.getCity(), a.getState(), a.getCountry(), a.getLatitude(), a.getLongitude());
 				addressDto.add(address);
 			}
 			return addressDto;

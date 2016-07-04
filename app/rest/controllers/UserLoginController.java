@@ -8,7 +8,6 @@ import models.abergin.UserToken;
 import models.bean.abergin.AUserBean;
 import play.mvc.BodyParser;
 import play.mvc.Result;
-import rest.bean.request.UserTransactionRequestBean;
 import rest.bean.response.ErrorResponse;
 import rest.bean.response.LoginResponseBean;
 import rest.bean.response.ResponseBean;

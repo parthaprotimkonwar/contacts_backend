@@ -2,7 +2,6 @@ package services.service.abergin;
 
 import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
-import com.fasterxml.jackson.databind.deser.Deserializers;
 import models.abergin.AUser;
 import models.bean.abergin.AUserBean;
 import rest.bean.response.UserResponseBean;

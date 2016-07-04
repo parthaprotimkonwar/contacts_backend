@@ -6,8 +6,6 @@
 # will call on the GlobalSettings.getController method to resolve the actual controller instance.
 GET         /                           @rest.controllers.Application.index
 
-GET		    /persons					@rest.controllers.Application.persons
-
 GET         /readImageFile              @rest.controllers.Application.readImageFile
 
 POST	    /login						@rest.controllers.UserLoginController.login

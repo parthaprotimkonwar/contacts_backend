@@ -3,7 +3,6 @@ package rest.controllers;
 import models.Person;
 import play.mvc.BodyParser;
 import play.mvc.Result;
-import rest.bean.response.LoginResponseBean;
 import rest.factory.BaseController;
 import services.service.ServicesFactory;
 
@@ -14,8 +13,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The main set of web services.
@@ -74,25 +71,6 @@ public class Application extends BaseController {
     }
     
     
-    public Result persons() {
-    	
-    	List<LoginResponseBean> response = null;
-    	try {
-	    	List<Person> users = servicesFactory.personService.persons();
-	    	
-	    	response = new ArrayList<>();
-	    	for(Person user : users) {
-	    		LoginResponseBean aUserResponse = new LoginResponseBean(user.id, user.firstname, null, null);
-	    		response.add(aUserResponse);
-	    	}
-	    	
-    	} catch (Exception ex) {
-    		
-    	}
-    	return convertObjectToJsonResponse(response);
-    }
-
-
     public Result readImageFile() {
         Path path = Paths.get("C:\\Users\\pkonwar\\Desktop\\addressbook\\dragon_160x160.jpg");
         byte[] imageBytes = null;
