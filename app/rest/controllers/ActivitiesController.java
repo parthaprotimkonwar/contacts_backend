@@ -1,23 +1,13 @@
 package rest.controllers;
 
-import application.enums.STATUS;
-import application.exceptions.BaseException;
-import models.abergin.AUser;
-import models.address.UserAddress;
 import play.mvc.BodyParser;
 import play.mvc.Result;
-import rest.bean.request.AddressRequestDto;
-import rest.bean.response.AddressDto;
-import rest.bean.response.AddressResponseDto;
-import rest.bean.response.ErrorResponse;
-import rest.bean.response.ListsAddressResponseDto;
 import rest.factory.BaseController;
 import services.service.ServicesFactory;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.util.List;
 
 @Named
 @Singleton
@@ -33,7 +23,7 @@ public class ActivitiesController extends BaseController{
 	@BodyParser.Of(BodyParser.Json.class)
 	public Result createNewAddress() {
 		
-		AddressResponseDto response = null;
+		/*AddressResponseDto response = null;
 		try {
 			AddressRequestDto addressRequest = convertRequestBodyToObject(request().body(), AddressRequestDto.class);
 			AUser user = servicesFactory.userTokenService.findUserAttachedToToken(addressRequest.token);
@@ -47,13 +37,14 @@ public class ActivitiesController extends BaseController{
 			ErrorResponse errorResponse = unknownErrorResponse();
 			return errorObjectToJsonResponse(errorResponse);
 		}
-		return convertObjectToJsonResponse(response);
+		return convertObjectToJsonResponse(response);*/
+		return null;
 	}
 	
 	@BodyParser.Of(BodyParser.Json.class)
 	public Result listsAddress() {
 		
-		ListsAddressResponseDto response = null;
+		/*ListsAddressResponseDto response = null;
 		try {
 			AddressRequestDto addressRequest = convertRequestBodyToObject(request().body(), AddressRequestDto.class);
 			AUser user = servicesFactory.userTokenService.findUserAttachedToToken(addressRequest.token);
@@ -67,7 +58,9 @@ public class ActivitiesController extends BaseController{
 			ErrorResponse errorResponse = unknownErrorResponse();
 			return errorObjectToJsonResponse(errorResponse);
 		}
-		return convertObjectToJsonResponse(response);
+		return convertObjectToJsonResponse(response);*/
+
+		return null;
 	}
 	
 	/*@BodyParser.Of(BodyParser.Json.class)

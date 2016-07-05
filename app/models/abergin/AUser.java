@@ -4,12 +4,10 @@ import application.Utilities.Util;
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
 import models.Constants;
-import models.address.UserAddress;
-import models.places.UserCity;
+import models.address.Address;
+import models.places.City;
 import models.specialities.UserSubSpeciality;
-import org.hibernate.annotations.GenerationTime;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -69,13 +67,14 @@ public class AUser implements Serializable{
 	@OneToOne(mappedBy="user")
 	private UserToken userToken;
 	
-	@OneToOne(mappedBy="userIdAddressId.user", fetch = FetchType.LAZY)
-	private UserAddress userAddressSet;
+	@OneToOne(mappedBy="user")
+	private Address address;
 
-	@OneToOne(mappedBy="userIdCityId.user", fetch = FetchType.LAZY)
-	private UserCity userCity;
+	@ManyToOne
+	@JoinColumn(name="CITY_ID")
+	private City city;
 
-	@OneToMany(mappedBy = "userIdSubSpecialityId.user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "userIdSubSpecialityId.user", fetch = FetchType.EAGER)
 	private Set<UserSubSpeciality> userSubSpecialitySet;
 
 	public AUser(Long userId) {
@@ -190,10 +189,6 @@ public class AUser implements Serializable{
 		return userToken;
 	}
 
-	public UserAddress getUserAddressSet() {
-		return userAddressSet;
-	}
-
 	public String getMobile() {
 		return mobile;
 	}
@@ -216,5 +211,21 @@ public class AUser implements Serializable{
 
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	public Set<UserSubSpeciality> getUserSubSpecialitySet() {
+		return userSubSpecialitySet;
+	}
+
+	public void setUserSubSpecialitySet(Set<UserSubSpeciality> userSubSpecialitySet) {
+		this.userSubSpecialitySet = userSubSpecialitySet;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

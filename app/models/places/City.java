@@ -1,15 +1,17 @@
 package models.places;
 
 import models.Constants;
+import models.abergin.AUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by pkonwar on 7/2/2016.
  */
 @Entity
-@Table(name = "LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_PLACES)
+@Table(name = "CITY", schema = Constants.SCHEMA_NAME_CONTACTS_ABERGIN)
 public class City implements Serializable{
 
     public City(){}
@@ -34,8 +36,10 @@ public class City implements Serializable{
     @Column(name = "LONGITUDE")
     private Double longitude;
 
-    @OneToOne(mappedBy = "userIdCityId.city")
-    private UserCity userCity;
+    /*@OneToOne(mappedBy = "userIdCityId.city")
+    private UserCity userCity;*/
+    @OneToMany(mappedBy = "city")
+    private Set<AUser> userSet;
 
     public Long getCityId() {
         return cityId;

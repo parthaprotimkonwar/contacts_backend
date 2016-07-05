@@ -1,6 +1,7 @@
 package models.address;
 
 import models.Constants;
+import models.abergin.AUser;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -60,8 +61,9 @@ public class Address implements Serializable{
 	@Column(name = "LATITUDE")
 	private Double latitude;
 
-	@OneToOne(mappedBy="userIdAddressId.address", cascade=CascadeType.ALL)
-	private UserAddress userAddress;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn
+	private AUser user;
 
 	public Long getAddressId() {
 		return addressId;
@@ -135,14 +137,6 @@ public class Address implements Serializable{
 		this.country = country;
 	}
 
-	public UserAddress getUserAddress() {
-		return userAddress;
-	}
-
-	public void setUserAddress(UserAddress userAddress) {
-		this.userAddress = userAddress;
-	}
-
 	public Double getLongitude() {
 		return longitude;
 	}
@@ -157,5 +151,13 @@ public class Address implements Serializable{
 
 	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
+	}
+
+	public AUser getUser() {
+		return user;
+	}
+
+	public void setUser(AUser user) {
+		this.user = user;
 	}
 }
