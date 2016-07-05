@@ -18,6 +18,15 @@ public interface AUsersServiceI {
 	 */
 	AUser createAUser(AUserBean userBean) throws BaseException;
 
+
+	/**
+	 * Update a user
+	 * @param userBean
+	 * @return
+	 * @throws BaseException
+     */
+	AUser updateAUser(AUserBean userBean) throws BaseException;
+
 	/**
 	 * Login
 	 * @param userBean
@@ -82,5 +91,5 @@ public interface AUsersServiceI {
 	 * @return
 	 * @throws BaseException
 	 */
-	UserResponseBean convertToUserBean(AUser aUser) throws BaseException;
+	AUserBean convertToUserBean(AUser aUser) throws BaseException;
 }

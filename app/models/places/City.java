@@ -1,4 +1,4 @@
-package models.location;
+package models.places;
 
 import models.Constants;
 
@@ -9,12 +9,12 @@ import java.io.Serializable;
  * Created by pkonwar on 7/2/2016.
  */
 @Entity
-@Table(name = "LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_LOCATION)
-public class Location implements Serializable{
+@Table(name = "LOCATION", schema = Constants.SCHEMA_NAME_CONTACTS_PLACES)
+public class City implements Serializable{
 
-    public Location(){}
+    public City(){}
 
-    public Location(String name, Double latitude, Double longitude){
+    public City(String name, Double latitude, Double longitude){
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -22,8 +22,8 @@ public class Location implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "LOCATION_ID")
-    private Long locationId;
+    @Column(name = "CITY_ID")
+    private Long cityId;
 
     @Column(name = "NAME", length = 30)
     private String name;
@@ -34,15 +34,15 @@ public class Location implements Serializable{
     @Column(name = "LONGITUDE")
     private Double longitude;
 
-    @OneToOne(mappedBy = "userIdLocationId.location")
-    private UserLocation userLocation;
+    @OneToOne(mappedBy = "userIdCityId.city")
+    private UserCity userCity;
 
-    public Long getLocationId() {
-        return locationId;
+    public Long getCityId() {
+        return cityId;
     }
 
-    public void setLocationId(Long locationId) {
-        this.locationId = locationId;
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 
     public String getName() {

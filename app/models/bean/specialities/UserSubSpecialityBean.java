@@ -9,18 +9,12 @@ public class UserSubSpecialityBean {
 
     private Integer price;
 
-    private Double latitude;
-
-    private Double longitude;
-
     public UserSubSpecialityBean() {
     }
 
-    public UserSubSpecialityBean(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean, Integer price, Double latitude, Double longitude) {
+    public UserSubSpecialityBean(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean, Integer price) {
         this.userIdSubSpecialityIdBean = userIdSubSpecialityIdBean;
         this.price = price;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 
     public Integer getPrice() {
@@ -29,22 +23,6 @@ public class UserSubSpecialityBean {
 
     public void setPrice(Integer price) {
         this.price = price;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public UserIdSubSpecialityIdBean getUserIdSubSpecialityIdBean() {

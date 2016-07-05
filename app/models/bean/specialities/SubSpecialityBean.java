@@ -17,6 +17,10 @@ public class SubSpecialityBean implements Serializable {
 
     private Long specialityId;
 
+    private String imageUrl;
+
+    private byte[] imageBlob;
+    
     public SubSpecialityBean() {
     }
 
@@ -57,5 +61,21 @@ public class SubSpecialityBean implements Serializable {
 
     public void setSpecialityId(Long specialityId) {
         this.specialityId = specialityId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public byte[] getImageBlob() {
+        return imageBlob;
+    }
+
+    public void setImageBlob(byte[] imageBlob) {
+        this.imageBlob = imageBlob;
     }
 }

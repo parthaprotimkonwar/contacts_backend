@@ -15,14 +15,28 @@ public class AUserBean implements Serializable {
     private String mobile;
     private String password;
     private String imageUrl;
+    private byte[] imageBlob;   //either of imageUrl or imageBlob should be set
     private Date lastLogin;
     private Date createdOn;
     private STATUS status;
-
+    private Date lastUpdate;     //only during response
     public AUserBean() {
     }
 
-    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, String imageUrl, Date lastLogin, Date createdOn, Double latitude, Double longitude, STATUS status) {
+    /**
+     * For Request
+     * @param userId
+     * @param userType
+     * @param name
+     * @param email
+     * @param mobile
+     * @param password
+     * @param imageUrl
+     * @param lastLogin
+     * @param createdOn
+     * @param status
+     */
+    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, String imageUrl, Date lastLogin, Date createdOn, STATUS status) {
         this.userId = userId;
         this.userType = userType;
         this.name = name;
@@ -30,6 +44,32 @@ public class AUserBean implements Serializable {
         this.mobile = mobile;
         this.password = password;
         this.imageUrl = imageUrl;
+        this.lastLogin = lastLogin;
+        this.createdOn = createdOn;
+        this.status = status;
+    }
+
+    /**
+     * For Response
+     * @param userId
+     * @param userType
+     * @param name
+     * @param email
+     * @param mobile
+     * @param password
+     * @param imageBlob
+     * @param lastLogin
+     * @param createdOn
+     * @param status
+     */
+    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status) {
+        this.userId = userId;
+        this.userType = userType;
+        this.name = name;
+        this.email = email;
+        this.mobile = mobile;
+        this.password = password;
+        this.imageBlob = imageBlob;
         this.lastLogin = lastLogin;
         this.createdOn = createdOn;
         this.status = status;
@@ -113,5 +153,21 @@ public class AUserBean implements Serializable {
 
     public void setStatus(STATUS status) {
         this.status = status;
+    }
+
+    public byte[] getImageBlob() {
+        return imageBlob;
+    }
+
+    public void setImageBlob(byte[] imageBlob) {
+        this.imageBlob = imageBlob;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Date lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 }

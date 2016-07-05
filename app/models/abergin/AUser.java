@@ -1,12 +1,15 @@
 package models.abergin;
 
+import application.Utilities.Util;
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
 import models.Constants;
 import models.address.UserAddress;
-import models.location.UserLocation;
+import models.places.UserCity;
 import models.specialities.UserSubSpeciality;
+import org.hibernate.annotations.GenerationTime;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -59,16 +62,20 @@ public class AUser implements Serializable{
 	@Enumerated(value = EnumType.ORDINAL)
 	private STATUS status;
 
+	@Column(name="LAST_UPDATE")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastUpdate;
+
 	@OneToOne(mappedBy="user")
 	private UserToken userToken;
 	
-	@OneToOne(mappedBy="userIdAddressId.user")
+	@OneToOne(mappedBy="userIdAddressId.user", fetch = FetchType.LAZY)
 	private UserAddress userAddressSet;
 
-	@OneToOne(mappedBy="userIdLocationId.user")
-	private UserLocation userLocation;
+	@OneToOne(mappedBy="userIdCityId.user", fetch = FetchType.LAZY)
+	private UserCity userCity;
 
-	@OneToMany(mappedBy = "userIdSubSpecialityId.user")
+	@OneToMany(mappedBy = "userIdSubSpecialityId.user", fetch = FetchType.LAZY)
 	private Set<UserSubSpeciality> userSubSpecialitySet;
 
 	public AUser(Long userId) {
@@ -85,6 +92,34 @@ public class AUser implements Serializable{
 		this.lastLogin = lastLogin;
 		this.createdOn = createdOn;
 		this.status = status;
+	}
+
+	public void consolidateUser(USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status) {
+
+		if(userType != null)
+			this.userType = userType;
+		if(!Util.isNullOrEmpty(name))
+			this.name = name;
+		if(!Util.isNullOrEmpty(email))
+			this.email = email;
+		if(!Util.isNullOrEmpty(mobile))
+			this.mobile = mobile;
+		if(!Util.isNullOrEmpty(password))
+			this.password = password;
+		if(imageBlob != null)
+			this.imageBlob = imageBlob;
+		if(lastLogin != null)
+			this.lastLogin = lastLogin;
+		if(createdOn != null)
+			this.createdOn = createdOn;
+		if(status != null)
+			this.status = status;
+	}
+
+	@PreUpdate
+	@PrePersist
+	void executeBeforeEachCommit() {
+		lastUpdate = new Date();
 	}
 
 	public Long getUserId() {
@@ -173,5 +208,13 @@ public class AUser implements Serializable{
 
 	public void setImageBlob(byte[] imageBlob) {
 		this.imageBlob = imageBlob;
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 }

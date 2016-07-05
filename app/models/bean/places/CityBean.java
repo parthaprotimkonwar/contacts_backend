@@ -1,13 +1,13 @@
-package models.bean.location;
+package models.bean.places;
 
 import java.io.Serializable;
 
 /**
  * Created by pkonwar on 7/2/2016.
  */
-public class LocationBean implements Serializable {
+public class CityBean implements Serializable {
 
-    private Long locationId;
+    private Long cityId;
 
     private String name;
 
@@ -15,26 +15,26 @@ public class LocationBean implements Serializable {
 
     private Double longitude;
 
-    public LocationBean() {
+    public CityBean() {
     }
 
-    public LocationBean(Long locationId) {
-        this.locationId = locationId;
+    public CityBean(Long cityId) {
+        this.cityId = cityId;
     }
 
-    public LocationBean(Long locationId, String name, Double latitude, Double longitude) {
-        this.locationId = locationId;
+    public CityBean(Long cityId, String name, Double latitude, Double longitude) {
+        this.cityId = cityId;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public Long getLocationId() {
-        return locationId;
+    public Long getCityId() {
+        return cityId;
     }
 
-    public void setLocationId(Long locationId) {
-        this.locationId = locationId;
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 
     public String getName() {

@@ -1,4 +1,4 @@
-package models.location;
+package models.places;
 
 import models.abergin.AUser;
 
@@ -12,13 +12,13 @@ import java.io.Serializable;
  * Created by pkonwar on 7/2/2016.
  */
 @Embeddable
-public class UserIdLocationId implements Serializable{
+public class UserIdCityId implements Serializable{
 
-    public UserIdLocationId() {}
+    public UserIdCityId() {}
 
-    public UserIdLocationId(AUser user, Location location) {
+    public UserIdCityId(AUser user, City city) {
         this.user = user;
-        this.location = location;
+        this.city = city;
     }
 
 
@@ -27,15 +27,15 @@ public class UserIdLocationId implements Serializable{
     private AUser user;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "LOCATION_ID")
-    private Location location;
+    @JoinColumn(name = "CITY_ID")
+    private City city;
 
-    public Location getLocation() {
-        return location;
+    public City getCity() {
+        return city;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public AUser getUser() {

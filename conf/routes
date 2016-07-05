@@ -12,6 +12,8 @@ POST	    /login						@rest.controllers.UserLoginController.login
 
 POST	    /signup						@rest.controllers.UserLoginController.signup
 
+POST        /update                     @rest.controllers.UserLoginController.updateUser
+
 POST        /logout                     @rest.controllers.UserLoginController.logout
 
 POST	    /address					@rest.controllers.ActivitiesController.createNewAddress

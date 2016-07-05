@@ -17,9 +17,10 @@ public class SubSpeciality implements Serializable {
     public SubSpeciality() {
     }
 
-    public SubSpeciality(String subSpeciality, STATUS status, Speciality speciality) {
+    public SubSpeciality(String subSpeciality, STATUS status, byte[] imageBlob, Speciality speciality) {
         this.subSpeciality = subSpeciality;
         this.status = status;
+        this.imageBlob = imageBlob;
         this.speciality = speciality;
     }
 
@@ -34,6 +35,10 @@ public class SubSpeciality implements Serializable {
     @Column(name = "STATUS")
     @Enumerated(value = EnumType.ORDINAL)
     private STATUS status;
+
+    @Lob
+    @Column(name = "IMAGE_BLOB")
+    private byte[] imageBlob;
 
     @ManyToOne
     @JoinColumn(name = "SPECIALITY_ID")

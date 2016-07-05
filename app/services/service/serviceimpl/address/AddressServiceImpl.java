@@ -21,7 +21,7 @@ public class AddressServiceImpl implements AddressServiceI{
 	@Override
 	public Address createAddress(AddressRequestDto address) throws BaseException {
 		try {
-			Address completeAddress = new Address(address.addressHeading, address.pincode, address.address, address.landmark, address.phoneNo, address.city, address.state, address.country);
+			Address completeAddress = new Address(address.addressHeading, address.pincode, address.address, address.landmark, address.phoneNo, address.city, address.state, address.country, address.longitude, address.latitude);
 			return addressRepository.save(completeAddress);
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;

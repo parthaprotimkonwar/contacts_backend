@@ -1,19 +1,19 @@
-package models.bean.location;
+package models.bean.places;
 
 import java.io.Serializable;
 
 /**
  * Created by pkonwar on 7/2/2016.
  */
-public class UserIdLocationIdBean implements Serializable {
+public class UserIdCityIdBean implements Serializable {
 
     private Long userId;
     private Long locationId;
 
-    public UserIdLocationIdBean() {
+    public UserIdCityIdBean() {
     }
 
-    public UserIdLocationIdBean(Long userId, Long locationId) {
+    public UserIdCityIdBean(Long userId, Long locationId) {
         this.userId = userId;
         this.locationId = locationId;
     }

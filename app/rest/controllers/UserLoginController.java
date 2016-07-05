@@ -1,16 +1,12 @@
 package rest.controllers;
 
-import application.enums.STATUS;
 import application.exceptions.BaseException;
-import application.exceptions.ErrorConstants;
 import models.abergin.AUser;
 import models.abergin.UserToken;
 import models.bean.abergin.AUserBean;
 import play.mvc.BodyParser;
 import play.mvc.Result;
 import rest.bean.response.ErrorResponse;
-import rest.bean.response.LoginResponseBean;
-import rest.bean.response.ResponseBean;
 import rest.bean.response.UserResponseBean;
 import rest.factory.BaseController;
 import services.service.ServicesFactory;
@@ -32,14 +28,12 @@ public class UserLoginController extends BaseController{
     @BodyParser.Of(BodyParser.Json.class)
     public Result signup() {
 
-        LoginResponseBean response = null;
+        AUserBean userResponse = null;
         try {
             AUserBean userBean = convertRequestBodyToObject(request().body(), AUserBean.class);
             AUser user = servicesFactory.usersService.createAUser(userBean);
-            UserToken token = servicesFactory.userTokenService.createOrupdateToken(user.getUserId());
-            //UserResponseBean userDetails = servicesFactory.usersService.convertToUserBean(user);
-            UserResponseBean userDetails = new UserResponseBean();
-            response = new LoginResponseBean(user.getUserId(), token.getTokenId(), user.getStatus(), userDetails);
+            //UserToken token = servicesFactory.userTokenService.createOrupdateToken(user.getUserId());
+            userResponse = servicesFactory.usersService.convertToUserBean(user);
 
         } catch (BaseException ex) {
             System.out.println(ex.getCause());
@@ -49,14 +43,36 @@ public class UserLoginController extends BaseController{
             ErrorResponse errorResponse = unknownErrorResponse();
             return errorObjectToJsonResponse(errorResponse);
         }
-        return convertObjectToJsonResponse(response);
+        return convertObjectToJsonResponse(userResponse);
+
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public Result updateUser() {
+
+        AUserBean userResponse = null;
+        try {
+            AUserBean userBean = convertRequestBodyToObject(request().body(), AUserBean.class);
+            AUser user = servicesFactory.usersService.updateAUser(userBean);
+            //UserToken token = servicesFactory.userTokenService.createOrupdateToken(user.getUserId());
+            userResponse = servicesFactory.usersService.convertToUserBean(user);
+
+        } catch (BaseException ex) {
+            System.out.println(ex.getCause());
+            ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
+            return errorObjectToJsonResponse(errorResponse);
+        } catch (Exception e) {
+            ErrorResponse errorResponse = unknownErrorResponse();
+            return errorObjectToJsonResponse(errorResponse);
+        }
+        return convertObjectToJsonResponse(userResponse);
 
     }
 
     @BodyParser.Of(BodyParser.Json.class)
     public Result login() {
 
-        LoginResponseBean response = null;
+        /*LoginResponseBean response = null;
         try {
             AUserBean userBean = convertRequestBodyToObject(request().body(), AUserBean.class);
             AUser user = servicesFactory.usersService.login(userBean);
@@ -76,7 +92,8 @@ public class UserLoginController extends BaseController{
             ErrorResponse errorResponse = unknownErrorResponse();
             return errorObjectToJsonResponse(errorResponse);
         }
-        return convertObjectToJsonResponse(response);
+        return convertObjectToJsonResponse(response);*/
+        return null;
 
     }
 
@@ -84,7 +101,7 @@ public class UserLoginController extends BaseController{
     @BodyParser.Of(BodyParser.Json.class)
     public Result logout() {
 
-        ResponseBean response = null;
+        /*ResponseBean response = null;
         try {
             UserTransactionRequestBean userBean = convertRequestBodyToObject(request().body(), UserTransactionRequestBean.class);
             servicesFactory.userTokenService.removeToken(userBean.getToken());
@@ -96,7 +113,8 @@ public class UserLoginController extends BaseController{
             ErrorResponse errorResponse = unknownErrorResponse();
             return errorObjectToJsonResponse(errorResponse);
         }
-        return convertObjectToJsonResponse(response);
+        return convertObjectToJsonResponse(response);*/
+        return null;
 
     }
 }

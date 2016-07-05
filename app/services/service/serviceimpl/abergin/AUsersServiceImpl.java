@@ -20,14 +20,29 @@ import java.util.List;
 public class AUsersServiceImpl implements AUsersServiceI {
 
 	@Inject
-	AUsersRepository AUsersRepository;
+	AUsersRepository userRepository;
 	
 	@Override
 	public AUser createAUser(AUserBean userBean) throws BaseException{
 		try {
 			byte[] imageBytes = userBean.getImageUrl() != null && !userBean.getImageUrl().isEmpty() ? Util.convertImageToByte(userBean.getImageUrl()) : null;
 			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
-			AUsersRepository.save(user);
+			userRepository.save(user);
+			return user;
+		} catch (Exception ex) {
+			ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
+			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+		}
+	}
+
+	@Override
+	public AUser updateAUser(AUserBean userBean) throws BaseException {
+		try {
+			byte[] imageBytes = userBean.getImageUrl() != null && !userBean.getImageUrl().isEmpty() ? Util.convertImageToByte(userBean.getImageUrl()) : null;
+			//AUser user = findUserById(userBean.getUserId());
+			AUser user = userRepository.findOne(userBean.getUserId());
+			user.consolidateUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
+			userRepository.save(user);
 			return user;
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
@@ -59,7 +74,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser findUserByEmailAndPasswordAndUserType(String email, String password, USER_TYPE userType) throws BaseException {
 		try {
-			AUser user = AUsersRepository.findByEmailAndPasswordAndUserType(email, password, userType);
+			AUser user = userRepository.findByEmailAndPasswordAndUserType(email, password, userType);
 			return user;
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
@@ -70,7 +85,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser findUserByEmailAndPassword(String email, String password) throws BaseException {
 		try {
-			AUser user = AUsersRepository.findByEmailAndPasswordAndUserType(email, password, USER_TYPE.VENDORS);
+			AUser user = userRepository.findByEmailAndPasswordAndUserType(email, password, USER_TYPE.VENDORS);
 			return user;
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
@@ -81,7 +96,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser findUserByEmail(String email, USER_TYPE userType) throws BaseException {
 		try {
-			AUser user = AUsersRepository.findByEmailAndUserType(email, userType);
+			AUser user = userRepository.findByEmailAndUserType(email, userType);
 			return user;
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
@@ -92,7 +107,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public AUser findUserById(@NotNull Long userId) throws BaseException{
 		try {
-			return AUsersRepository.findOne(userId);
+			return userRepository.findOne(userId);
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
 			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
@@ -102,7 +117,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public List<AUser> users() throws BaseException{
 		try {
-			return AUsersRepository.findAll();
+			return userRepository.findAll();
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
 			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
@@ -112,7 +127,7 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	@Override
 	public void deleteUser(Long userId) throws BaseException {
 		try {
-			AUsersRepository.delete(userId);
+			userRepository.delete(userId);
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_REMOVAL_EXCEPTION;
 			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
@@ -120,8 +135,10 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	}
 
 	@Override
-	public UserResponseBean convertToUserBean(AUser aUser) throws BaseException {
-		return new UserResponseBean(aUser.getUserId(), aUser.getUserType(), aUser.getName(), aUser.getEmail(), aUser.getMobile(), aUser.getLastLogin(), aUser.getCreatedOn(), null, aUser.getStatus());
+	public AUserBean convertToUserBean(AUser user) throws BaseException {
+		AUserBean bean = new AUserBean(user.getUserId(), user.getUserType(), user.getName(), user.getEmail(), user.getMobile(), user.getPassword(), user.getImageBlob(), user.getLastLogin(), user.getCreatedOn(), user.getStatus());
+		bean.setLastLogin(user.getLastLogin());
+		return bean;
 	}
 
 }

@@ -20,20 +20,12 @@ public class UserSubSpeciality {
     @Column(name = "PRICE")
     private Integer price;
 
-    @Column(name = "LATITUDE")
-    private Double latitude;
-
-    @Column(name = "LONGITUDE")
-    private Double longitude;
-
     public UserSubSpeciality() {
     }
 
-    public UserSubSpeciality(UserIdSubSpecialityId userIdSubSpecialityId, Integer price, Double latitude, Double longitude) {
+    public UserSubSpeciality(UserIdSubSpecialityId userIdSubSpecialityId, Integer price) {
         this.userIdSubSpecialityId = userIdSubSpecialityId;
         this.price = price;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 
     public UserIdSubSpecialityId getUserIdSubSpecialityId() {
@@ -52,19 +44,4 @@ public class UserSubSpeciality {
         this.price = price;
     }
 
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
 }

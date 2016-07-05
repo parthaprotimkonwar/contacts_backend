@@ -1,5 +1,6 @@
 package services.service.serviceimpl.specialities;
 
+import application.Utilities.Util;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import models.bean.specialities.SubSpecialityBean;
@@ -33,7 +34,8 @@ public class SubSpecialityServiceImpl implements SubSpecialityServiceI {
 
         try {
             Speciality speciality = specialityServiceI.findASpeciality(subSpecialityBean.getSpecialityId());
-            SubSpeciality subSpeciality = new SubSpeciality(subSpecialityBean.getSubSpeciality(), subSpecialityBean.getStatus(), speciality);
+            byte[] imageBlob = subSpecialityBean.getImageUrl() != null && !subSpecialityBean.getImageUrl().isEmpty() ? Util.convertImageToByte(subSpecialityBean.getImageUrl()) : null;
+            SubSpeciality subSpeciality = new SubSpeciality(subSpecialityBean.getSubSpeciality(), subSpecialityBean.getStatus(), imageBlob, speciality);
             return subSpecialityRepository.save(subSpeciality);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;

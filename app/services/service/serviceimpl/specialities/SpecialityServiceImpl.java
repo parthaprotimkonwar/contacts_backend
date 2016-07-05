@@ -1,5 +1,6 @@
 package services.service.serviceimpl.specialities;
 
+import application.Utilities.Util;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import models.bean.specialities.SpecialityBean;
@@ -26,7 +27,8 @@ public class SpecialityServiceImpl implements SpecialityServiceI {
     @Override
     public Speciality addSpeciality(SpecialityBean specialityBean) throws BaseException {
         try {
-            Speciality speciality = new Speciality(specialityBean.getSpeciality(), specialityBean.getStatus());
+            byte[] imageBlob = specialityBean.getImageUrl() != null && !specialityBean.getImageUrl().isEmpty() ? Util.convertImageToByte(specialityBean.getImageUrl()) : null;
+            Speciality speciality = new Speciality(specialityBean.getSpeciality(), specialityBean.getStatus(), imageBlob);
             return specialityRepository.save(speciality);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;

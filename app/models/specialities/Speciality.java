@@ -17,9 +17,10 @@ public class Speciality implements Serializable {
     public Speciality() {
     }
 
-    public Speciality(String speciality, STATUS status) {
+    public Speciality(String speciality, STATUS status, byte[] imageBlob) {
         this.speciality = speciality;
         this.status = status;
+        this.imageBlob = imageBlob;
     }
 
     @Id
@@ -33,6 +34,10 @@ public class Speciality implements Serializable {
     @Column(name = "STATUS")
     @Enumerated(value = EnumType.ORDINAL)
     private STATUS status;
+
+    @Lob
+    @Column(name = "IMAGE_BLOB")
+    private byte[] imageBlob;
 
     @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)
     private Set<SubSpeciality> subSpecialitySet;

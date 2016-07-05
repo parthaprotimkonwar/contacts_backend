@@ -21,4 +21,13 @@ public class Util {
         Path path = Paths.get(location);
         return Files.readAllBytes(path);
     }
+
+
+    public static Boolean isNullOrEmpty(String... strings) {
+        for(String astring : strings) {
+            if(astring == null || astring.isEmpty())
+                return true;
+        }
+        return false;
+    }
 }

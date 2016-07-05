@@ -28,6 +28,10 @@ public class SpecialityBean implements Serializable {
 
     private STATUS status;
 
+    private String imageUrl;
+
+    private byte[] imageBlob;       //only one of imageUrl or imageBlob need to be filled.
+
     public Long getSpecialityId() {
         return specialityId;
     }
@@ -50,5 +54,21 @@ public class SpecialityBean implements Serializable {
 
     public void setStatus(STATUS status) {
         this.status = status;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public byte[] getImageBlob() {
+        return imageBlob;
+    }
+
+    public void setImageBlob(byte[] imageBlob) {
+        this.imageBlob = imageBlob;
     }
 }

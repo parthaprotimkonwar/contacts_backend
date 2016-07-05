@@ -41,7 +41,7 @@ public class UserSubSpecialityServiceImpl implements UserSubSpecialityServiceI {
             SubSpeciality subSpeciality = subSpecialityServiceI.findASubSpeciality(userSubSpecialityBean.getUserIdSubSpecialityIdBean().getSubSpecialityId());
             AUser user = usersServiceI.findUserById(userSubSpecialityBean.getUserIdSubSpecialityIdBean().getUserId());
             UserIdSubSpecialityId userIdSubSpecialityId = new UserIdSubSpecialityId(user, subSpeciality);
-            UserSubSpeciality userSubSpeciality = new UserSubSpeciality(userIdSubSpecialityId, userSubSpecialityBean.getPrice(), userSubSpecialityBean.getLatitude(), userSubSpecialityBean.getLongitude());
+            UserSubSpeciality userSubSpeciality = new UserSubSpeciality(userIdSubSpecialityId, userSubSpecialityBean.getPrice());
             return userSubSpecialityRepository.save(userSubSpeciality);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
@@ -78,7 +78,7 @@ public class UserSubSpecialityServiceImpl implements UserSubSpecialityServiceI {
         try {
             for (UserSubSpeciality userSubSpeciality : userSubSpecialityList) {
                 UserIdSubSpecialityIdBean userIdSubSpecialityIdBean = new UserIdSubSpecialityIdBean(userSubSpeciality.getUserIdSubSpecialityId().getUser().getUserId(), userSubSpeciality.getUserIdSubSpecialityId().getSubSpeciality().getSubSpecialityId());
-                UserSubSpecialityBean userSubSpecialityBean = new UserSubSpecialityBean(userIdSubSpecialityIdBean, userSubSpeciality.getPrice(), userSubSpeciality.getLatitude(), userSubSpeciality.getLongitude());
+                UserSubSpecialityBean userSubSpecialityBean = new UserSubSpecialityBean(userIdSubSpecialityIdBean, userSubSpeciality.getPrice());
                 userSubSpecialityBeanList.add(userSubSpecialityBean);
             }
             return userSubSpecialityBeanList;
