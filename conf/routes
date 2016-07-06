@@ -4,27 +4,39 @@
 
 # Home page - we use the @controllers syntax here so that the router knows we are referring to a class. In turn it
 # will call on the GlobalSettings.getController method to resolve the actual controller instance.
-GET         /                           @rest.controllers.Application.index
+GET         /                                   @rest.controllers.Application.index
 
-GET         /readImageFile              @rest.controllers.Application.readImageFile
+GET         /readImageFile                      @rest.controllers.Application.readImageFile
 
-POST	    /login						@rest.controllers.UserLoginController.login
+POST	    /login						        @rest.controllers.UserLoginController.login
 
-GET         /factory/reset              @rest.controllers.FactoryResetController.factoryResetData
+GET         /factory/reset                      @rest.controllers.FactoryResetController.factoryResetData
 
-GET         /vendors/city/:cityId       @rest.controllers.FactoryResetController.vendorsInCity(cityId: Long)
+GET         /vendors/city/:cityId               @rest.controllers.FactoryResetController.vendorsInCity(cityId: Long)
 
-POST	    /signup						@rest.controllers.UserLoginController.signup
+POST        /admin/onboard/city                 @rest.controllers.OnboardingController.onboardCity
 
-POST        /update                     @rest.controllers.UserLoginController.updateUser
+POST        /admin/onboard/speciality           @rest.controllers.OnboardingController.onboardSpeciality
 
-POST        /logout                     @rest.controllers.UserLoginController.logout
+POST        /admin/onboard/subspeciality        @rest.controllers.OnboardingController.onboardSubSpeciality
 
-OPTIONS     /signup                     @rest.controllers.CORSAllowController.enablecors
+POST        /admin/onboard/user                 @rest.controllers.OnboardingController.onboardUser
 
-OPTIONS     /login                      @rest.controllers.CORSAllowController.enablecors
+POST        /admin/onboard/address              @rest.controllers.OnboardingController.onboardAddress
 
-OPTIONS     /logout                     @rest.controllers.CORSAllowController.enablecors
+POST        /admin/onboard/usersubspeciality    @rest.controllers.OnboardingController.onboardUserSubSpeciality
+
+POST	    /signup						        @rest.controllers.UserLoginController.signup
+
+POST        /update                             @rest.controllers.UserLoginController.updateUser
+
+POST        /logout                             @rest.controllers.UserLoginController.logout
+
+OPTIONS     /signup                             @rest.controllers.CORSAllowController.enablecors
+
+OPTIONS     /login                              @rest.controllers.CORSAllowController.enablecors
+
+OPTIONS     /logout                             @rest.controllers.CORSAllowController.enablecors
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                           controllers.Assets.at(path="/public", file)

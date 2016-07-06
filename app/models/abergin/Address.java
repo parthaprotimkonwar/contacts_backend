@@ -48,7 +48,7 @@ public class Address implements Serializable{
 	private Double latitude;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn
+	@JoinColumn(nullable = false)
 	private AUser user;
 
 	@Column(name = "JOURNAL_ID")

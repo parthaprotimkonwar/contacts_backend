@@ -6,6 +6,7 @@ import services.service.abergin.AddressServiceI;
 import services.service.places.CityServiceI;
 import services.service.specialities.SpecialityServiceI;
 import services.service.specialities.SubSpecialityServiceI;
+import services.service.specialities.UserSubSpecialityServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -32,6 +33,9 @@ public class ServicesFactory {
 
 	@Inject
 	public SubSpecialityServiceI subSpecialityService;
+
+	@Inject
+	public UserSubSpecialityServiceI userSubSpecialityService;
 
 	@Inject
 	public PersonServiceI personService;

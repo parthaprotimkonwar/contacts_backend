@@ -75,7 +75,7 @@ public class AUser implements Serializable{
 	@JoinColumn(name="CITY_ID", nullable = false)
 	private City city;
 
-	@OneToMany(mappedBy = "userIdSubSpecialityId.user")
+	@OneToMany(mappedBy = "userIdSubSpecialityId.user", fetch = FetchType.EAGER)
 	private Set<UserSubSpeciality> userSubSpecialitySet;
 
 	/**
