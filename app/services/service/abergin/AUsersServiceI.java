@@ -4,7 +4,8 @@ import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
 import models.abergin.AUser;
 import models.bean.abergin.AUserBean;
-import rest.bean.response.UserResponseBean;
+import models.places.City;
+import rest.dto.VendorsInCityDto;
 
 import java.util.List;
 
@@ -34,6 +35,15 @@ public interface AUsersServiceI {
 	 * @throws BaseException
 	 */
 	AUser login(AUserBean userBean) throws BaseException;
+
+	/**
+	 *
+	 * @param cityId
+	 * @return
+	 * @throws BaseException
+     */
+	List<AUser> findUsersByCity(Long cityId) throws BaseException;
+
 
 	/**
 	 *

@@ -6,8 +6,14 @@ import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import models.abergin.AUser;
 import models.bean.abergin.AUserBean;
+import models.bean.abergin.AddressBean;
+import models.bean.specialities.UserSubSpecialityBean;
+import models.places.City;
+import models.specialities.UserSubSpeciality;
 import repository.abergin.AUsersRepository;
+import rest.dto.VendorsInCityDto;
 import services.service.abergin.AUsersServiceI;
+import services.service.places.CityServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,12 +28,16 @@ public class AUsersServiceImpl implements AUsersServiceI {
 
 	@Inject
 	AUsersRepository userRepository;
-	
+
+	@Inject
+	CityServiceI cityService;
+
 	@Override
 	public AUser createAUser(AUserBean userBean) throws BaseException{
 		try {
 			byte[] imageBytes = userBean.getImageUrl() != null && !userBean.getImageUrl().isEmpty() ? Util.convertImageToByte(userBean.getImageUrl()) : null;
-			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
+			City city = cityService.findACity(userBean.getCityId());
+			AUser user = new AUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus(), city);
 			userRepository.save(user);
 			return user;
 		} catch (Exception ex) {
@@ -40,9 +50,9 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	public AUser updateAUser(AUserBean userBean) throws BaseException {
 		try {
 			byte[] imageBytes = userBean.getImageUrl() != null && !userBean.getImageUrl().isEmpty() ? Util.convertImageToByte(userBean.getImageUrl()) : null;
-			//AUser user = findUserById(userBean.getUserId());
-			AUser user = userRepository.findOne(userBean.getUserId());
-			user.consolidateUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus());
+			AUser user = findUserById(userBean.getUserId());
+			City city = cityService.findACity(userBean.getCityId());
+			user.consolidateUser(userBean.getUserType(), userBean.getName(), userBean.getEmail(), userBean.getMobile(), userBean.getPassword(), imageBytes, userBean.getLastLogin(), userBean.getCreatedOn(), userBean.getStatus(), city);
 			userRepository.save(user);
 			return user;
 		} catch (Exception ex) {
@@ -66,6 +76,17 @@ public class AUsersServiceImpl implements AUsersServiceI {
 				throw new BaseException(error.errorCode, error.errorMessage);
 			}
 			return user;
+		} catch (Exception ex) {
+			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
+			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+		}
+	}
+
+	@Override
+	public List<AUser> findUsersByCity(Long cityId) throws BaseException {
+		try {
+			City city = cityService.findACity(cityId);
+			return userRepository.findByCity(city);
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
 			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());

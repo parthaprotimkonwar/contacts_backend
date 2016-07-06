@@ -72,10 +72,10 @@ public class AUser implements Serializable{
 	private Address address;
 
 	@ManyToOne
-	@JoinColumn(name="CITY_ID")
+	@JoinColumn(name="CITY_ID", nullable = false)
 	private City city;
 
-	@OneToMany(mappedBy = "userIdSubSpecialityId.user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "userIdSubSpecialityId.user")
 	private Set<UserSubSpeciality> userSubSpecialitySet;
 
 	/**
@@ -85,7 +85,7 @@ public class AUser implements Serializable{
      */
 	public AUserBean toAUserBean() throws BaseException {
 		try {
-			return new AUserBean(userId, userType, name, email, mobile, password, imageBlob, lastLogin, createdOn, status, journalId);
+			return new AUserBean(userId, userType, name, email, mobile, password, imageBlob, lastLogin, createdOn, status, journalId, city.getCityId());
 		} catch (Exception ex) {
 			ErrorConstants err = ErrorConstants.DATA_FETCH_EXCEPTION;
 			throw new BaseException(err.errorCode, err.errorMessage);
@@ -96,7 +96,7 @@ public class AUser implements Serializable{
 		this.userId = userId;
 	}
 
-	public AUser(USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status) {
+	public AUser(USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status, City city) {
 		this.userType = userType;
 		this.name = name;
 		this.email = email;
@@ -106,9 +106,10 @@ public class AUser implements Serializable{
 		this.lastLogin = lastLogin;
 		this.createdOn = createdOn;
 		this.status = status;
+		this.city = city;
 	}
 
-	public void consolidateUser(USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status) {
+	public void consolidateUser(USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status, City city) {
 
 		if(userType != null)
 			this.userType = userType;
@@ -128,6 +129,8 @@ public class AUser implements Serializable{
 			this.createdOn = createdOn;
 		if(status != null)
 			this.status = status;
+		if(city != null && city.getCityId() != null)
+			this.city = city;
 	}
 
 	@PreUpdate

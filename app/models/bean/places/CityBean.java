@@ -1,5 +1,7 @@
 package models.bean.places;
 
+import application.enums.STATUS;
+
 import java.io.Serializable;
 
 /**
@@ -8,13 +10,10 @@ import java.io.Serializable;
 public class CityBean implements Serializable {
 
     private Long cityId;
-
     private String name;
-
     private Double latitude;
-
     private Double longitude;
-
+    private STATUS status;
     private Integer journalId;
 
     public CityBean() {
@@ -24,11 +23,12 @@ public class CityBean implements Serializable {
         this.cityId = cityId;
     }
 
-    public CityBean(Long cityId, String name, Double latitude, Double longitude, Integer journalId) {
+    public CityBean(Long cityId, String name, Double latitude, Double longitude, STATUS status, Integer journalId) {
         this.cityId = cityId;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.status = status;
         this.journalId = journalId;
     }
 
@@ -70,5 +70,13 @@ public class CityBean implements Serializable {
 
     public void setJournalId(Integer journalId) {
         this.journalId = journalId;
+    }
+
+    public STATUS getStatus() {
+        return status;
+    }
+
+    public void setStatus(STATUS status) {
+        this.status = status;
     }
 }

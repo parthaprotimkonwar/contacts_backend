@@ -1,7 +1,11 @@
 package models.places;
 
+import application.enums.STATUS;
+import application.exceptions.BaseException;
+import application.exceptions.ErrorConstants;
 import models.Constants;
 import models.abergin.AUser;
+import models.bean.places.CityBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,10 +20,11 @@ public class City implements Serializable{
 
     public City(){}
 
-    public City(String name, Double latitude, Double longitude){
+    public City(String name, Double latitude, Double longitude, STATUS status){
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.status = status;
     }
 
     @Id
@@ -39,6 +44,10 @@ public class City implements Serializable{
     @OneToMany(mappedBy = "city")
     private Set<AUser> userSet;
 
+    @Column(name = "STATUS")
+    @Enumerated(value = EnumType.ORDINAL)
+    private STATUS status;
+
     @Column(name = "JOURNAL_ID")
     private Integer journalId;
 
@@ -52,6 +61,19 @@ public class City implements Serializable{
         }
     }
 
+    /**
+     * Converts to CITY BEAN
+     * @return
+     * @throws BaseException
+     */
+    public CityBean toCityBean() throws BaseException {
+        try {
+            return new CityBean(cityId, name, latitude, longitude, status, journalId);
+        } catch (Exception ex) {
+            ErrorConstants err = ErrorConstants.DATA_FETCH_EXCEPTION;
+            throw new BaseException(err.errorCode, err.errorMessage);
+        }
+    }
     public Long getCityId() {
         return cityId;
     }
@@ -90,5 +112,13 @@ public class City implements Serializable{
 
     public void setJournalId(Integer journalId) {
         this.journalId = journalId;
+    }
+
+    public STATUS getStatus() {
+        return status;
+    }
+
+    public void setStatus(STATUS status) {
+        this.status = status;
     }
 }

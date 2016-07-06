@@ -10,15 +10,15 @@ GET         /readImageFile              @rest.controllers.Application.readImageF
 
 POST	    /login						@rest.controllers.UserLoginController.login
 
+GET         /factory/reset              @rest.controllers.FactoryResetController.factoryResetData
+
+GET         /vendors/city/:cityId       @rest.controllers.FactoryResetController.vendorsInCity(cityId: Long)
+
 POST	    /signup						@rest.controllers.UserLoginController.signup
 
 POST        /update                     @rest.controllers.UserLoginController.updateUser
 
 POST        /logout                     @rest.controllers.UserLoginController.logout
-
-POST	    /address					@rest.controllers.ActivitiesController.createNewAddress
-
-POST	    /address/user				@rest.controllers.ActivitiesController.listsAddress
 
 OPTIONS     /signup                     @rest.controllers.CORSAllowController.enablecors
 

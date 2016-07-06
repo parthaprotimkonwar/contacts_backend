@@ -2,6 +2,7 @@ package models.bean.abergin;
 
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
+import models.places.City;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,15 +19,17 @@ public class AUserBean implements Serializable {
     private byte[] imageBlob;   //either of imageUrl or imageBlob should be set
     private Date lastLogin;
     private Date createdOn;
+    private Long cityId;
+
     private STATUS status;
     private Integer journalId;     //only during response
+
 
     public AUserBean() {
     }
 
     /**
      * For Request
-     *
      * @param userId
      * @param userType
      * @param name
@@ -37,8 +40,9 @@ public class AUserBean implements Serializable {
      * @param lastLogin
      * @param createdOn
      * @param status
+     * @param cityId
      */
-    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, String imageUrl, Date lastLogin, Date createdOn, STATUS status) {
+    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, String imageUrl, Date lastLogin, Date createdOn, STATUS status, Long cityId) {
         this.userId = userId;
         this.userType = userType;
         this.name = name;
@@ -49,11 +53,11 @@ public class AUserBean implements Serializable {
         this.lastLogin = lastLogin;
         this.createdOn = createdOn;
         this.status = status;
+        this.cityId = cityId;
     }
 
     /**
      * For Response
-     *
      * @param userId
      * @param userType
      * @param name
@@ -64,8 +68,10 @@ public class AUserBean implements Serializable {
      * @param lastLogin
      * @param createdOn
      * @param status
+     * @param journalId
+     * @param cityId
      */
-    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status, Integer journalId) {
+    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status, Integer journalId, Long cityId) {
         this.userId = userId;
         this.userType = userType;
         this.name = name;
@@ -77,6 +83,7 @@ public class AUserBean implements Serializable {
         this.createdOn = createdOn;
         this.status = status;
         this.journalId = journalId;
+        this.cityId = cityId;
     }
 
     public Long getUserId() {
@@ -173,5 +180,13 @@ public class AUserBean implements Serializable {
 
     public void setJournalId(Integer journalId) {
         this.journalId = journalId;
+    }
+
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
     }
 }
