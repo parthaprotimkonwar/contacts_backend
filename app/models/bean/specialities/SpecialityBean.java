@@ -16,21 +16,19 @@ public class SpecialityBean implements Serializable {
         this.specialityId = specialityId;
     }
 
-    public SpecialityBean(Long specialityId, String speciality, STATUS status) {
+    public SpecialityBean(Long specialityId, String speciality, STATUS status, Integer journalId) {
         this.specialityId = specialityId;
         this.speciality = speciality;
         this.status = status;
+        this.journalId = journalId;
     }
 
     private Long specialityId;
-
     private String speciality;
-
     private STATUS status;
-
     private String imageUrl;
-
     private byte[] imageBlob;       //only one of imageUrl or imageBlob need to be filled.
+    private Integer journalId;
 
     public Long getSpecialityId() {
         return specialityId;
@@ -70,5 +68,13 @@ public class SpecialityBean implements Serializable {
 
     public void setImageBlob(byte[] imageBlob) {
         this.imageBlob = imageBlob;
+    }
+
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

@@ -90,8 +90,7 @@ public class SpecialityServiceImpl implements SpecialityServiceI {
         List<SpecialityBean> specialityBeanList = new ArrayList<>();
         try {
             for (Speciality speciality : specialityList) {
-                SpecialityBean specialityBean = new SpecialityBean(speciality.getSpecialityId(), speciality.getSpeciality(), speciality.getStatus());
-                specialityBeanList.add(specialityBean);
+                specialityBeanList.add(speciality.toSpecialityBean());
             }
             return specialityBeanList;
         } catch (Exception ex) {

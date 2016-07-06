@@ -3,8 +3,10 @@ package models.abergin;
 import application.Utilities.Util;
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
+import application.exceptions.BaseException;
+import application.exceptions.ErrorConstants;
 import models.Constants;
-import models.address.Address;
+import models.bean.abergin.AUserBean;
 import models.places.City;
 import models.specialities.UserSubSpeciality;
 
@@ -15,7 +17,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="USERS", schema= Constants.SCHEMA_NAME_CONTACTS_ABERGIN,
-		uniqueConstraints={@UniqueConstraint(columnNames = {"USER_TYPE","EMAIL"})},
+		uniqueConstraints={@UniqueConstraint(columnNames = {"USER_TYPE","MOBILE"})},
 		indexes = {
 				@Index(name = "USERS_LOGIN", columnList = "USER_TYPE,EMAIL,PASSWORD")
 		})
@@ -28,7 +30,7 @@ public class AUser implements Serializable{
 	@Column(name="USER_ID")
 	private Long userId;
 	
-	@Column(name="USER_TYPE")
+	@Column(name="USER_TYPE", nullable = false)
 	@Enumerated(value = EnumType.ORDINAL)
 	private USER_TYPE userType;
 
@@ -38,7 +40,7 @@ public class AUser implements Serializable{
 	@Column(name = "EMAIL", length = 30)
 	private String email;
 
-	@Column(name = "MOBILE", length = 15, unique = true)
+	@Column(name = "MOBILE", length = 15, nullable = false)
 	private String mobile;
 
 	@Column(name = "PASSWORD", length = 50)
@@ -60,9 +62,8 @@ public class AUser implements Serializable{
 	@Enumerated(value = EnumType.ORDINAL)
 	private STATUS status;
 
-	@Column(name="LAST_UPDATE")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date lastUpdate;
+	@Column(name="JOURNAL_ID")
+	private Integer journalId;
 
 	@OneToOne(mappedBy="user")
 	private UserToken userToken;
@@ -76,6 +77,20 @@ public class AUser implements Serializable{
 
 	@OneToMany(mappedBy = "userIdSubSpecialityId.user", fetch = FetchType.EAGER)
 	private Set<UserSubSpeciality> userSubSpecialitySet;
+
+	/**
+	 *
+	 * @return
+	 * @throws BaseException
+     */
+	public AUserBean toAUserBean() throws BaseException {
+		try {
+			return new AUserBean(userId, userType, name, email, mobile, password, imageBlob, lastLogin, createdOn, status, journalId);
+		} catch (Exception ex) {
+			ErrorConstants err = ErrorConstants.DATA_FETCH_EXCEPTION;
+			throw new BaseException(err.errorCode, err.errorMessage);
+		}
+	}
 
 	public AUser(Long userId) {
 		this.userId = userId;
@@ -118,7 +133,11 @@ public class AUser implements Serializable{
 	@PreUpdate
 	@PrePersist
 	void executeBeforeEachCommit() {
-		lastUpdate = new Date();
+		if(journalId != null) {
+			journalId += 1;
+		} else {
+			journalId = 0;
+		}
 	}
 
 	public Long getUserId() {
@@ -205,14 +224,6 @@ public class AUser implements Serializable{
 		this.imageBlob = imageBlob;
 	}
 
-	public Date getLastUpdate() {
-		return lastUpdate;
-	}
-
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
-	}
-
 	public Set<UserSubSpeciality> getUserSubSpecialitySet() {
 		return userSubSpecialitySet;
 	}
@@ -227,5 +238,13 @@ public class AUser implements Serializable{
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Integer getJournalId() {
+		return journalId;
+	}
+
+	public void setJournalId(Integer journalId) {
+		this.journalId = journalId;
 	}
 }

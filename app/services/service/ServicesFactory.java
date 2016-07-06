@@ -2,7 +2,7 @@ package services.service;
 
 import services.service.abergin.AUsersServiceI;
 import services.service.abergin.UserTokenServiceI;
-import services.service.address.AddressServiceI;
+import services.service.abergin.AddressServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;

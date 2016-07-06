@@ -36,10 +36,21 @@ public class City implements Serializable{
     @Column(name = "LONGITUDE")
     private Double longitude;
 
-    /*@OneToOne(mappedBy = "userIdCityId.city")
-    private UserCity userCity;*/
     @OneToMany(mappedBy = "city")
     private Set<AUser> userSet;
+
+    @Column(name = "JOURNAL_ID")
+    private Integer journalId;
+
+    @PreUpdate
+    @PrePersist
+    void executeBeforeEachCommit() {
+        if(journalId != null) {
+            journalId += 1;
+        } else {
+            journalId = 0;
+        }
+    }
 
     public Long getCityId() {
         return cityId;
@@ -71,5 +82,13 @@ public class City implements Serializable{
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

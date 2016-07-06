@@ -1,11 +1,12 @@
 package models.specialities;
 
+import application.exceptions.BaseException;
+import application.exceptions.ErrorConstants;
 import models.Constants;
+import models.bean.specialities.UserIdSubSpecialityIdBean;
+import models.bean.specialities.UserSubSpecialityBean;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by pkonwar on 7/2/2016.
@@ -19,6 +20,29 @@ public class UserSubSpeciality {
 
     @Column(name = "PRICE")
     private Integer price;
+
+    @Column(name = "JOURNAL_ID")
+    private Integer journalId;
+
+    @PreUpdate
+    @PrePersist
+    void executeBeforeEachCommit() {
+        if(journalId != null) {
+            journalId += 1;
+        } else {
+            journalId = 0;
+        }
+    }
+
+    public UserSubSpecialityBean toUserSubSpecialityBean() throws BaseException {
+        try {
+            UserIdSubSpecialityIdBean userIdSubSpecialityIdBean = new UserIdSubSpecialityIdBean(userIdSubSpecialityId.getUser().getUserId(), userIdSubSpecialityId.getSubSpeciality().getSubSpecialityId());
+            return new UserSubSpecialityBean(userIdSubSpecialityIdBean, price, journalId);
+        } catch (Exception ex) {
+            ErrorConstants err = ErrorConstants.DATA_FETCH_EXCEPTION;
+            throw new BaseException(err.errorCode,err.errorMessage);
+        }
+    }
 
     public UserSubSpeciality() {
     }
@@ -44,4 +68,11 @@ public class UserSubSpeciality {
         this.price = price;
     }
 
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
+    }
 }

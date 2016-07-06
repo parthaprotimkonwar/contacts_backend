@@ -10,25 +10,22 @@ import java.io.Serializable;
 public class SubSpecialityBean implements Serializable {
 
     private Long subSpecialityId;
-
     private String subSpeciality;
-
     private STATUS status;
-
     private Long specialityId;
-
     private String imageUrl;
-
     private byte[] imageBlob;
-    
+    private Integer journalId;
+
     public SubSpecialityBean() {
     }
 
-    public SubSpecialityBean(Long subSpecialityId, String subSpeciality, STATUS status, Long specialityId) {
+    public SubSpecialityBean(Long subSpecialityId, String subSpeciality, STATUS status, Long specialityId, Integer journalId) {
         this.subSpecialityId = subSpecialityId;
         this.subSpeciality = subSpeciality;
         this.status = status;
         this.specialityId = specialityId;
+        this.journalId = journalId;
     }
 
     public Long getSubSpecialityId() {
@@ -77,5 +74,13 @@ public class SubSpecialityBean implements Serializable {
 
     public void setImageBlob(byte[] imageBlob) {
         this.imageBlob = imageBlob;
+    }
+
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

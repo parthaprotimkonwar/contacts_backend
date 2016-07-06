@@ -1,31 +1,17 @@
-package models.address;
+package models.abergin;
 
+import application.exceptions.BaseException;
+import application.exceptions.ErrorConstants;
 import models.Constants;
-import models.abergin.AUser;
+import models.bean.abergin.AddressBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name="ADDRESS", schema= Constants.SCHEMA_NAME_CONTACTS_ADDRESS)
 public class Address implements Serializable{
 
-	public Address() {}
-	
-	public Address(String addressHeading, String pincode, String address, String landmark, String phoneNo, String city, String state, String country,  Double longitude, Double latitude) {
-		this.addressHeading = addressHeading;
-		this.pincode = pincode;
-		this.address = address;
-		this.landmark = landmark;
-		this.phoneNo = phoneNo;
-		this.city = city;
-		this.state = state;
-		this.country = country;
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="ADDRESS_ID")
@@ -64,6 +50,47 @@ public class Address implements Serializable{
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn
 	private AUser user;
+
+	@Column(name = "JOURNAL_ID")
+	private Integer journalId;			//Journal ID of the record
+
+	@PreUpdate
+	@PrePersist
+	void executeBeforeEachCommit() {
+		if(journalId != null) {
+			journalId += 1;
+		} else {
+			journalId = 0;
+		}
+	}
+	/**
+	 * Convert to addressBean
+	 * @return
+     */
+	public AddressBean toAddressBean() throws BaseException {
+		try {
+			return new AddressBean(addressId, addressHeading, pincode, address, landmark, phoneNo, city, state, country, longitude, latitude, user.getUserId(), journalId);
+		} catch (Exception ex) {
+			ErrorConstants er = ErrorConstants.DATA_FETCH_EXCEPTION;
+			throw new BaseException(er.errorCode, er.errorMessage);
+		}
+	}
+
+	public Address() {}
+
+	public Address(String addressHeading, String pincode, String address, String landmark, String phoneNo, String city, String state, String country,  Double longitude, Double latitude, AUser user) {
+		this.addressHeading = addressHeading;
+		this.pincode = pincode;
+		this.address = address;
+		this.landmark = landmark;
+		this.phoneNo = phoneNo;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.user = user;
+	}
 
 	public Long getAddressId() {
 		return addressId;
@@ -159,5 +186,13 @@ public class Address implements Serializable{
 
 	public void setUser(AUser user) {
 		this.user = user;
+	}
+
+	public Integer getJournalId() {
+		return journalId;
+	}
+
+	public void setJournalId(Integer journalId) {
+		this.journalId = journalId;
 	}
 }

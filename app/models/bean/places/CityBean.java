@@ -15,6 +15,8 @@ public class CityBean implements Serializable {
 
     private Double longitude;
 
+    private Integer journalId;
+
     public CityBean() {
     }
 
@@ -22,11 +24,12 @@ public class CityBean implements Serializable {
         this.cityId = cityId;
     }
 
-    public CityBean(Long cityId, String name, Double latitude, Double longitude) {
+    public CityBean(Long cityId, String name, Double latitude, Double longitude, Integer journalId) {
         this.cityId = cityId;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.journalId = journalId;
     }
 
     public Long getCityId() {
@@ -59,5 +62,13 @@ public class CityBean implements Serializable {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

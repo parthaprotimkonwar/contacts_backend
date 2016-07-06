@@ -86,10 +86,10 @@ public interface AUsersServiceI {
 
 
 	/**
-	 * Convert to UserBean
-	 * @param aUser
+	 *
+	 * @param users
 	 * @return
 	 * @throws BaseException
-	 */
-	AUserBean convertToUserBean(AUser aUser) throws BaseException;
+     */
+	List<AUserBean> convertToUserBeanList(List<AUser> users) throws BaseException;
 }

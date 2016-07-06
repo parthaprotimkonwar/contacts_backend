@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -135,10 +136,17 @@ public class AUsersServiceImpl implements AUsersServiceI {
 	}
 
 	@Override
-	public AUserBean convertToUserBean(AUser user) throws BaseException {
-		AUserBean bean = new AUserBean(user.getUserId(), user.getUserType(), user.getName(), user.getEmail(), user.getMobile(), user.getPassword(), user.getImageBlob(), user.getLastLogin(), user.getCreatedOn(), user.getStatus());
-		bean.setLastLogin(user.getLastLogin());
-		return bean;
+	public List<AUserBean> convertToUserBeanList(List<AUser> users) throws BaseException {
+		List<AUserBean> userBeanList = new ArrayList<>();
+		try {
+			for(AUser user : users) {
+				userBeanList.add(user.toAUserBean());
+			}
+			return userBeanList;
+		} catch (Exception ex) {
+			ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
+			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+		}
 	}
 
 }

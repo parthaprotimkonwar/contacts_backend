@@ -77,9 +77,7 @@ public class UserSubSpecialityServiceImpl implements UserSubSpecialityServiceI {
         List<UserSubSpecialityBean> userSubSpecialityBeanList = new ArrayList<>();
         try {
             for (UserSubSpeciality userSubSpeciality : userSubSpecialityList) {
-                UserIdSubSpecialityIdBean userIdSubSpecialityIdBean = new UserIdSubSpecialityIdBean(userSubSpeciality.getUserIdSubSpecialityId().getUser().getUserId(), userSubSpeciality.getUserIdSubSpecialityId().getSubSpeciality().getSubSpecialityId());
-                UserSubSpecialityBean userSubSpecialityBean = new UserSubSpecialityBean(userIdSubSpecialityIdBean, userSubSpeciality.getPrice());
-                userSubSpecialityBeanList.add(userSubSpecialityBean);
+                userSubSpecialityBeanList.add(userSubSpeciality.toUserSubSpecialityBean());
             }
             return userSubSpecialityBeanList;
         } catch (Exception ex) {

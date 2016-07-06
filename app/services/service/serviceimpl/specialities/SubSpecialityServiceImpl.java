@@ -78,8 +78,7 @@ public class SubSpecialityServiceImpl implements SubSpecialityServiceI {
         List<SubSpecialityBean> subSpecialityBeanList = new ArrayList<>();
         try {
             for (SubSpeciality subSpeciality : subSpecialityList) {
-                SubSpecialityBean subSpecialityBean = new SubSpecialityBean(subSpeciality.getSubSpecialityId(), subSpeciality.getSubSpeciality(), subSpeciality.getStatus(), subSpeciality.getSpeciality().getSpecialityId());
-                subSpecialityBeanList.add(subSpecialityBean);
+                subSpecialityBeanList.add(subSpeciality.toSubSpecialityBean());
             }
             return subSpecialityBeanList;
         } catch (Exception ex) {

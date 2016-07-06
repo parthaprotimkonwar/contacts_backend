@@ -1,7 +1,10 @@
 package models.specialities;
 
 import application.enums.STATUS;
+import application.exceptions.BaseException;
+import application.exceptions.ErrorConstants;
 import models.Constants;
+import models.bean.specialities.SpecialityBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -42,6 +45,27 @@ public class Speciality implements Serializable {
     @OneToMany(mappedBy = "speciality", cascade = CascadeType.ALL)
     private Set<SubSpeciality> subSpecialitySet;
 
+    @Column(name = "JOURNAL_ID")
+    private Integer journalId;
+
+    @PreUpdate
+    @PrePersist
+    void executeBeforeEachCommit() {
+        if(journalId != null) {
+            journalId += 1;
+        } else {
+            journalId = 0;
+        }
+    }
+
+    public SpecialityBean toSpecialityBean() throws BaseException{
+        try {
+            return new SpecialityBean(specialityId, speciality, status, journalId);
+        } catch (Exception ex) {
+            ErrorConstants err= ErrorConstants.DATA_FETCH_EXCEPTION;
+            throw new BaseException(err.errorCode, err.errorMessage);
+        }
+    }
     public Long getSpecialityId() {
         return specialityId;
     }
@@ -64,5 +88,13 @@ public class Speciality implements Serializable {
 
     public void setStatus(STATUS status) {
         this.status = status;
+    }
+
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

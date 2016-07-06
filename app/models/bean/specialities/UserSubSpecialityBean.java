@@ -6,15 +6,16 @@ package models.bean.specialities;
 public class UserSubSpecialityBean {
 
     private UserIdSubSpecialityIdBean userIdSubSpecialityIdBean;
-
     private Integer price;
+    private Integer journalId;
 
     public UserSubSpecialityBean() {
     }
 
-    public UserSubSpecialityBean(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean, Integer price) {
+    public UserSubSpecialityBean(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean, Integer price, Integer journalId) {
         this.userIdSubSpecialityIdBean = userIdSubSpecialityIdBean;
         this.price = price;
+        this.journalId = journalId;
     }
 
     public Integer getPrice() {
@@ -31,5 +32,13 @@ public class UserSubSpecialityBean {
 
     public void setUserIdSubSpecialityIdBean(UserIdSubSpecialityIdBean userIdSubSpecialityIdBean) {
         this.userIdSubSpecialityIdBean = userIdSubSpecialityIdBean;
+    }
+
+    public Integer getJournalId() {
+        return journalId;
+    }
+
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }

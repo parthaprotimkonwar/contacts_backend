@@ -19,12 +19,14 @@ public class AUserBean implements Serializable {
     private Date lastLogin;
     private Date createdOn;
     private STATUS status;
-    private Date lastUpdate;     //only during response
+    private Integer journalId;     //only during response
+
     public AUserBean() {
     }
 
     /**
      * For Request
+     *
      * @param userId
      * @param userType
      * @param name
@@ -51,6 +53,7 @@ public class AUserBean implements Serializable {
 
     /**
      * For Response
+     *
      * @param userId
      * @param userType
      * @param name
@@ -62,7 +65,7 @@ public class AUserBean implements Serializable {
      * @param createdOn
      * @param status
      */
-    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status) {
+    public AUserBean(Long userId, USER_TYPE userType, String name, String email, String mobile, String password, byte[] imageBlob, Date lastLogin, Date createdOn, STATUS status, Integer journalId) {
         this.userId = userId;
         this.userType = userType;
         this.name = name;
@@ -73,6 +76,7 @@ public class AUserBean implements Serializable {
         this.lastLogin = lastLogin;
         this.createdOn = createdOn;
         this.status = status;
+        this.journalId = journalId;
     }
 
     public Long getUserId() {
@@ -163,11 +167,11 @@ public class AUserBean implements Serializable {
         this.imageBlob = imageBlob;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public Integer getJournalId() {
+        return journalId;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setJournalId(Integer journalId) {
+        this.journalId = journalId;
     }
 }
